@@ -39,9 +39,16 @@ class MeUser {
         phone: json['phone'] as String?,
         city: json['city'] as String?,
         bio: json['bio'] as String?,
+<<<<<<< HEAD
         photos:
             (json['photos'] as List<dynamic>?)?.whereType<String>().toList() ??
                 const <String>[],
+=======
+        photos: (json['photos'] as List<dynamic>?)
+                ?.whereType<String>()
+                .toList() ??
+            const <String>[],
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
         verificationStatus: json['verificationStatus'] as String?,
         onboardingCompleted: json['onboardingCompleted'] as bool? ?? false,
         role: json['role'] as String?,
@@ -61,6 +68,7 @@ class MeUser {
   }
 
   String? get avatarUrl {
+<<<<<<< HEAD
     final raw = photos.isNotEmpty ? photos.first.trim() : '';
     if (raw.isEmpty) return null;
 
@@ -68,6 +76,15 @@ class MeUser {
     final base = ApiConfig.publicBaseUrl;
     return '${base}${raw.startsWith('/') ? '' : '/'}$raw';
   }
+=======
+  final raw = photos.isNotEmpty ? photos.first.trim() : '';
+  if (raw.isEmpty) return null;
+
+  if (raw.startsWith('http')) return raw;
+  final base = ApiConfig.publicBaseUrl;
+  return '${base}${raw.startsWith('/') ? '' : '/'}$raw';
+}
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
   bool get isVerified => verificationStatus == 'VERIFIED';
 }
@@ -89,6 +106,7 @@ class MeRepository {
       '/users/me/avatar/upload',
       data: formData,
     );
+<<<<<<< HEAD
     final data = response.data ?? <String, dynamic>{};
     final direct = data['avatarUrl'] as String?;
     if (direct != null && direct.trim().isNotEmpty) return direct;
@@ -101,6 +119,9 @@ class MeRepository {
     }
 
     return null;
+=======
+    return response.data?['avatarUrl'] as String?;
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   }
 }
 
@@ -110,4 +131,8 @@ final meRepositoryProvider = Provider<MeRepository>((ref) {
 
 final meProvider = FutureProvider<MeUser>((ref) async {
   return ref.read(meRepositoryProvider).getMe();
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

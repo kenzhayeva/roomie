@@ -97,7 +97,10 @@ model User {
   phone              String?         @unique
   password           String
   role               UserRole        @default(USER)
+<<<<<<< HEAD
   isBanned           Boolean         @default(false)
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   emailVerified      Boolean         @default(false)
   phoneVerified      Boolean         @default(false)
   firstName          String?
@@ -136,8 +139,11 @@ model User {
 
   favoriteUsers FavoriteUser[] @relation("FavoriteOwner")
   favoritedBy   FavoriteUser[] @relation("FavoriteTarget")
+<<<<<<< HEAD
   conversationParticipants ConversationParticipant[]
   sentMessages Message[]
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
   @@map("users")
 }
@@ -221,6 +227,7 @@ model FavoriteUser {
   @@unique([ownerId, targetUserId])
   @@map("favorite_users")
 }
+<<<<<<< HEAD
 
 model Conversation {
   id           String                    @id @default(uuid())
@@ -260,3 +267,5 @@ model Message {
   @@index([conversationId, createdAt])
   @@map("messages")
 }
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

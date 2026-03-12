@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿import 'package:dio/dio.dart';
+=======
+import 'package:dio/dio.dart';
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,8 +35,11 @@ class _ProfileAboutPageState extends ConsumerState<ProfileAboutPage> {
   int? _selectedStatus;
   String? _selectedCity;
   bool _isSubmitting = false;
+<<<<<<< HEAD
   bool _fromEdit = false;
   bool _argsParsed = false;
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
   bool get _isValid =>
       _selectedStatus != null &&
@@ -48,6 +55,7 @@ class _ProfileAboutPageState extends ConsumerState<ProfileAboutPage> {
   }
 
   @override
+<<<<<<< HEAD
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_argsParsed) return;
@@ -59,6 +67,8 @@ class _ProfileAboutPageState extends ConsumerState<ProfileAboutPage> {
   }
 
   @override
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   void dispose() {
     _universityController.dispose();
     _ageController.dispose();
@@ -132,6 +142,7 @@ class _ProfileAboutPageState extends ConsumerState<ProfileAboutPage> {
 
     setState(() => _isSubmitting = true);
     try {
+<<<<<<< HEAD
       final nextStep =
           await ref.read(onboardingRepositoryProvider).submitAboutStep(
                 AboutStepPayload(
@@ -141,6 +152,18 @@ class _ProfileAboutPageState extends ConsumerState<ProfileAboutPage> {
                   city: _selectedCity!,
                 ),
               );
+=======
+      final nextStep = await ref
+          .read(onboardingRepositoryProvider)
+          .submitAboutStep(
+            AboutStepPayload(
+              occupationStatus: _mapStatus(_selectedStatus!),
+              university: _universityController.text.trim(),
+              age: age,
+              city: _selectedCity!,
+            ),
+          );
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       if (!mounted) return;
 
       final prefs = await SharedPreferences.getInstance();
@@ -148,12 +171,17 @@ class _ProfileAboutPageState extends ConsumerState<ProfileAboutPage> {
       await prefs.setString(_cityDraftKey, _selectedCity!);
       if (!mounted) return;
 
+<<<<<<< HEAD
       if (_fromEdit) {
         Navigator.of(context).pop(true);
       } else {
         final route = OnboardingRouteMapper.fromStep(nextStep);
         Navigator.of(context).pushNamed(route);
       }
+=======
+      final route = OnboardingRouteMapper.fromStep(nextStep);
+      Navigator.of(context).pushNamed(route);
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     } on DioException catch (e) {
       if (!mounted) return;
       final serverMessage = e.response?.data is Map<String, dynamic>
@@ -214,11 +242,17 @@ class _ProfileAboutPageState extends ConsumerState<ProfileAboutPage> {
             children: [
               ProfileFlowHeader(
                 progress: const ProfileStepProgress(activeStep: 1),
+<<<<<<< HEAD
                 onBack: () => _fromEdit
                     ? Navigator.of(context).pop()
                     : Navigator.of(
                         context,
                       ).pushReplacementNamed(AppRoutes.profile),
+=======
+                onBack: () => Navigator.of(
+                  context,
+                ).pushReplacementNamed(AppRoutes.profile),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
               ),
               const SizedBox(height: 20),
               Expanded(
@@ -311,9 +345,15 @@ class _Label extends StatelessWidget {
     return Text(
       text,
       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+<<<<<<< HEAD
             color: const Color(0xFF4E556F),
             fontWeight: FontWeight.w500,
           ),
+=======
+        color: const Color(0xFF4E556F),
+        fontWeight: FontWeight.w500,
+      ),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     );
   }
 }
@@ -347,9 +387,15 @@ class _OptionButton extends StatelessWidget {
         child: Text(
           label,
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
+<<<<<<< HEAD
                 color: const Color(0xFF001561),
                 fontWeight: FontWeight.w600,
               ),
+=======
+            color: const Color(0xFF001561),
+            fontWeight: FontWeight.w600,
+          ),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
         ),
       ),
     );
@@ -469,8 +515,14 @@ class _CityPickerSheetState extends State<_CityPickerSheet> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final query = _searchController.text.trim().toLowerCase();
+<<<<<<< HEAD
     final filtered =
         widget.cities.where((c) => c.toLowerCase().contains(query)).toList();
+=======
+    final filtered = widget.cities
+        .where((c) => c.toLowerCase().contains(query))
+        .toList();
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
     return TweenAnimationBuilder<double>(
       duration: const Duration(milliseconds: 260),
@@ -592,5 +644,8 @@ class _CityPickerSheetState extends State<_CityPickerSheet> {
     );
   }
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

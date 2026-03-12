@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿import 'package:flutter/material.dart';
+=======
+import 'package:flutter/material.dart';
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../app/app_routes.dart';
@@ -190,6 +194,15 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           '\u041e \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u0438',
                     ),
                     const SizedBox(height: 8),
+<<<<<<< HEAD
+=======
+                  _MenuItem(
+                     icon: Icons.admin_panel_settings,
+                     title: 'Admin Panel',
+                     onTap: () =>
+                      Navigator.of(context).pushNamed(AppRoutes.adminVerifications),
+                    ),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                     const SizedBox(height: 22),
                     InkWell(
                       onTap: () =>
@@ -304,6 +317,7 @@ class _ProfileHeader extends ConsumerWidget {
       ),
       data: (me) => Row(
         children: [
+<<<<<<< HEAD
           CircleAvatar(
             radius: 32,
             backgroundColor: const Color(0xFFD3D5DB),
@@ -314,6 +328,16 @@ class _ProfileHeader extends ConsumerWidget {
             child: (me.avatarUrl == null || me.avatarUrl!.isEmpty)
                 ? const Icon(Icons.person, color: Colors.white, size: 34)
                 : null,
+=======
+          Container(
+            height: 64,
+            width: 64,
+            decoration: const BoxDecoration(
+              color: Color(0xFFD3D5DB),
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(Icons.person, color: Colors.white, size: 34),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
           ),
           const SizedBox(width: 12),
           Column(
@@ -729,5 +753,8 @@ class _NavIcon extends StatelessWidget {
     );
   }
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿import 'package:dio/dio.dart';
+=======
+import 'package:dio/dio.dart';
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
 import '../errors/app_exception.dart';
 
@@ -68,27 +72,43 @@ AppException mapDioErrorToAppException(DioException error) {
           normalized.contains('revoked'))) {
     return const AppException(
       code: AppErrorCode.invalidOrExpiredToken,
+<<<<<<< HEAD
       message: 'Сессия истекла. Войдите снова.',
+=======
+      message: 'Сессия истекла. Войдите заново.',
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     );
   }
 
   if (status == 400) {
     return const AppException(
       code: AppErrorCode.validation,
+<<<<<<< HEAD
       message: 'Проверьте корректность введенных данных.',
+=======
+      message: 'Проверьте правильность введённых данных.',
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     );
   }
 
   if (status != null && status >= 500) {
     return const AppException(
       code: AppErrorCode.network,
+<<<<<<< HEAD
       message: 'Ошибка сервера. Попробуйте позже.',
+=======
+      message: 'Сервер недоступен. Попробуйте позже.',
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     );
   }
 
   return const AppException(
     code: AppErrorCode.unknown,
+<<<<<<< HEAD
     message: 'Что-то пошло не так. Попробуйте еще раз.',
+=======
+    message: 'Что-то пошло не так. Попробуйте ещё раз.',
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   );
 }
 

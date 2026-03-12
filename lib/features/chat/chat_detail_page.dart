@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -168,12 +169,69 @@ class _ChatDetailPageState extends ConsumerState<ChatDetailPage> {
     final me = ref.watch(meProvider).valueOrNull;
     final currentUserId = me?.id;
 
+=======
+import 'package:flutter/material.dart';
+import 'package:roommate_app/core/theme/app_colors.dart';
+import 'package:roommate_app/core/theme/app_sizes.dart';
+import 'package:roommate_app/core/theme/app_text_styles.dart';
+
+class ChatDetailPage extends StatefulWidget {
+  final String title;
+  final bool online;
+  final String letter;
+  final String imagePath;
+
+  const ChatDetailPage({
+    super.key,
+    required this.title,
+    required this.online,
+    required this.letter,
+    required this.imagePath,
+  });
+
+  @override
+  State<ChatDetailPage> createState() => _ChatDetailPageState();
+}
+
+class _ChatDetailPageState extends State<ChatDetailPage> {
+  final input = TextEditingController();
+
+  final List<_Msg> msgs = [
+    _Msg("Привет! Я видела твой профиль,\nдумаю, мы отлично подходим!", false, "10:30"),
+    _Msg("Привет! Спасибо, что написала.\nРасскажи о себе поподробнее!", true, "10:32"),
+    _Msg("Я программист, работаю из дома\nпару дней в неделю. Я\nчистоплотная и уважаю личное\nпространство.", false, "10:33"),
+    _Msg("Звучит идеально! Я тоже работаю\nиз дома. У тебя есть домашние\nживотные?", true, "10:35"),
+    _Msg("У меня есть кошка! Надеюсь, это\nне проблема. Она очень\nдружелюбная и воспитанная.", false, "10:36"),
+  ];
+
+  @override
+  void dispose() {
+    input.dispose();
+    super.dispose();
+  }
+
+  void send() {
+    final t = input.text.trim();
+    if (t.isEmpty) return;
+    setState(() => msgs.add(_Msg(t, true, _hhmm())));
+    input.clear();
+  }
+
+  String _hhmm() {
+    final d = DateTime.now();
+    return "${d.hour.toString().padLeft(2, '0')}:${d.minute.toString().padLeft(2, '0')}";
+  }
+
+  @override
+  Widget build(BuildContext context) {
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     return Scaffold(
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(AppSizes.pad),
           child: Column(
             children: [
+<<<<<<< HEAD
               _Header(
                 title: widget.title ?? 'Chat',
                 online: widget.online,
@@ -184,6 +242,73 @@ class _ChatDetailPageState extends ConsumerState<ChatDetailPage> {
               const SizedBox(height: 8),
               Expanded(
                 child: _buildBody(currentUserId),
+=======
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(Icons.arrow_back_ios_new, size: 18),
+                  ),
+                  Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      CircleAvatar(
+                        radius: AppSizes.avatarRadius,
+                        backgroundImage: AssetImage(widget.imagePath),
+                      ),
+                      Positioned(
+                        right: -1,
+                        bottom: -1,
+                        child: Container(
+                          width: AppSizes.onlineDot,
+                          height: AppSizes.onlineDot,
+                          decoration: BoxDecoration(
+                            color: widget.online ? AppColors.online : AppColors.offline,
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.white, width: 2),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(widget.title, style: AppTextStyles.name),
+                        const SizedBox(height: 2),
+                        Text(widget.online ? "В сети" : "Не в сети", style: AppTextStyles.secondary12),
+                      ],
+                    ),
+                  ),
+                  const Icon(Icons.more_horiz),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Expanded(
+                child: ListView.builder(
+                  padding: const EdgeInsets.only(top: 8, bottom: 8),
+                  itemCount: msgs.length,
+                  itemBuilder: (_, i) => _Bubble(msgs[i]),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Row(
+                  children: [
+                    _Chip(
+                      "Когда можно встретиться?",
+                      onTap: () => setState(() => input.text = "Когда можно встретиться?"),
+                    ),
+                    const SizedBox(width: 10),
+                    _Chip(
+                      "Расскажи подробнее",
+                      onTap: () => setState(() => input.text = "Расскажи подробнее"),
+                    ),
+                  ],
+                ),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
               ),
               Row(
                 children: [
@@ -197,16 +322,25 @@ class _ChatDetailPageState extends ConsumerState<ChatDetailPage> {
                       ),
                       child: Row(
                         children: [
+<<<<<<< HEAD
                           const Icon(Icons.message_outlined,
                               size: 18, color: Colors.black38),
+=======
+                          const Icon(Icons.image_outlined, size: 18, color: Colors.black38),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                           const SizedBox(width: 8),
                           Expanded(
                             child: TextField(
                               controller: input,
+<<<<<<< HEAD
                               minLines: 1,
                               maxLines: 4,
                               decoration: const InputDecoration(
                                 hintText: 'Write a message...',
+=======
+                              decoration: const InputDecoration(
+                                hintText: "Напишите сообщение...",
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                                 border: InputBorder.none,
                                 isCollapsed: true,
                               ),
@@ -221,14 +355,21 @@ class _ChatDetailPageState extends ConsumerState<ChatDetailPage> {
                   ValueListenableBuilder(
                     valueListenable: input,
                     builder: (_, __, ___) {
+<<<<<<< HEAD
                       final hasText = input.text.trim().isNotEmpty && !_sending;
                       return InkWell(
                         onTap: hasText ? _send : null,
+=======
+                      final hasText = input.text.trim().isNotEmpty;
+                      return InkWell(
+                        onTap: hasText ? send : null,
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                         borderRadius: BorderRadius.circular(14),
                         child: Container(
                           width: 44,
                           height: 44,
                           decoration: BoxDecoration(
+<<<<<<< HEAD
                             color:
                                 hasText ? AppColors.primary : AppColors.border,
                             borderRadius: BorderRadius.circular(14),
@@ -236,6 +377,12 @@ class _ChatDetailPageState extends ConsumerState<ChatDetailPage> {
                           child: Icon(Icons.send_rounded,
                               size: 18,
                               color: hasText ? Colors.white : Colors.black38),
+=======
+                            color: hasText ? AppColors.primary : AppColors.border,
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          child: Icon(Icons.send_rounded, size: 18, color: hasText ? Colors.white : Colors.black38),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                         ),
                       );
                     },
@@ -248,6 +395,7 @@ class _ChatDetailPageState extends ConsumerState<ChatDetailPage> {
       ),
     );
   }
+<<<<<<< HEAD
 
   Widget _buildBody(String? currentUserId) {
     if (_loading) {
@@ -400,6 +548,24 @@ class _Bubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+=======
+}
+
+class _Msg {
+  final String text;
+  final bool isMe;
+  final String time;
+  _Msg(this.text, this.isMe, this.time);
+}
+
+class _Bubble extends StatelessWidget {
+  final _Msg msg;
+  const _Bubble(this.msg);
+
+  @override
+  Widget build(BuildContext context) {
+    final isMe = msg.isMe;
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     final bubbleColor = isMe ? AppColors.bubbleMe : AppColors.bubbleOther;
     final textColor = isMe ? Colors.white : Colors.black87;
 
@@ -416,17 +582,27 @@ class _Bubble extends StatelessWidget {
         mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           ConstrainedBox(
+<<<<<<< HEAD
             constraints: BoxConstraints(
                 maxWidth: MediaQuery.of(context).size.width * 0.72),
             child: Column(
               crossAxisAlignment:
                   isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+=======
+            constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.72),
+            child: Column(
+              crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                   decoration: BoxDecoration(color: bubbleColor, borderRadius: radius),
                   child: Text(
+<<<<<<< HEAD
                     text,
+=======
+                    msg.text,
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -436,10 +612,14 @@ class _Bubble extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 3),
+<<<<<<< HEAD
                 Text(
                   time,
                   style: const TextStyle(fontSize: 11, color: Colors.black38),
                 ),
+=======
+                Text(msg.time, style: const TextStyle(fontSize: 11, color: Colors.black38)),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
               ],
             ),
           ),
@@ -448,3 +628,40 @@ class _Bubble extends StatelessWidget {
     );
   }
 }
+<<<<<<< HEAD
+=======
+
+class _Chip extends StatelessWidget {
+  final String text;
+  final VoidCallback onTap;
+  const _Chip(this.text, {required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(18),
+        child: Container(
+          height: 34,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: AppColors.chipBg,
+            borderRadius: BorderRadius.circular(18),
+          ),
+          child: Text(
+            text,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              color: AppColors.chipText,
+              fontWeight: FontWeight.w600,
+              fontSize: 12,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

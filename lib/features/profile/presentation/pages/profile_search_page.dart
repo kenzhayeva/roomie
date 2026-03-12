@@ -27,12 +27,16 @@ class _ProfileSearchPageState extends ConsumerState<ProfileSearchPage> {
   String? _term;
   String? _gender;
   bool _isSubmitting = false;
+<<<<<<< HEAD
   bool _fromEdit = false;
   bool _argsParsed = false;
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
   bool get _isValid => _district != null && _term != null && _gender != null;
 
   @override
+<<<<<<< HEAD
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_argsParsed) return;
@@ -44,6 +48,8 @@ class _ProfileSearchPageState extends ConsumerState<ProfileSearchPage> {
   }
 
   @override
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   void initState() {
     super.initState();
     _prefillFromStatus();
@@ -54,7 +60,11 @@ class _ProfileSearchPageState extends ConsumerState<ProfileSearchPage> {
       final status = await ref.read(onboardingRepositoryProvider).getStatus();
       final search =
           (status.profile['search'] as Map?)?.cast<String, dynamic>() ??
+<<<<<<< HEAD
               <String, dynamic>{};
+=======
+          <String, dynamic>{};
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       if (!mounted) return;
       setState(() {
         final min = search['budgetMin'] as num?;
@@ -81,6 +91,7 @@ class _ProfileSearchPageState extends ConsumerState<ProfileSearchPage> {
     if (!_isValid || _isSubmitting) return;
     setState(() => _isSubmitting = true);
     try {
+<<<<<<< HEAD
       final nextStep =
           await ref.read(onboardingRepositoryProvider).submitSearchStep(
                 SearchStepPayload(
@@ -102,6 +113,26 @@ class _ProfileSearchPageState extends ConsumerState<ProfileSearchPage> {
         final route = OnboardingRouteMapper.fromStep(nextStep);
         Navigator.of(context).pushNamed(route);
       }
+=======
+      final nextStep = await ref
+          .read(onboardingRepositoryProvider)
+          .submitSearchStep(
+            SearchStepPayload(
+              budgetMin: _budget.start.round(),
+              budgetMax: _budget.end.round(),
+              district: _district!,
+              roommateGenderPreference: _gender == 'male'
+                  ? 'MALE'
+                  : _gender == 'female'
+                  ? 'FEMALE'
+                  : 'ANY',
+              stayTerm: _term!,
+            ),
+          );
+      if (!mounted) return;
+      final route = OnboardingRouteMapper.fromStep(nextStep);
+      Navigator.of(context).pushNamed(route);
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     } on DioException catch (e) {
       if (!mounted) return;
       final serverMessage = e.response?.data is Map<String, dynamic>
@@ -143,11 +174,17 @@ class _ProfileSearchPageState extends ConsumerState<ProfileSearchPage> {
             children: [
               ProfileFlowHeader(
                 progress: const ProfileStepProgress(activeStep: 3),
+<<<<<<< HEAD
                 onBack: () => _fromEdit
                     ? Navigator.of(context).pop()
                     : Navigator.of(
                         context,
                       ).pushReplacementNamed(AppRoutes.profileLifestyle),
+=======
+                onBack: () => Navigator.of(
+                  context,
+                ).pushReplacementNamed(AppRoutes.profileLifestyle),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
               ),
               const SizedBox(height: 20),
               Expanded(
@@ -308,10 +345,17 @@ class _Label extends StatelessWidget {
     return Text(
       text,
       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+<<<<<<< HEAD
             color: const Color(0xFF4E556F),
             fontWeight: FontWeight.w500,
             fontSize: 14,
           ),
+=======
+        color: const Color(0xFF4E556F),
+        fontWeight: FontWeight.w500,
+        fontSize: 14,
+      ),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     );
   }
 }

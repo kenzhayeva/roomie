@@ -34,10 +34,17 @@ class ProfileFlowHeader extends StatelessWidget {
             title ?? '',
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+<<<<<<< HEAD
                   color: const Color(0xFF001561),
                   fontWeight: FontWeight.w700,
                   fontSize: 17,
                 ),
+=======
+              color: const Color(0xFF001561),
+              fontWeight: FontWeight.w700,
+              fontSize: 17,
+            ),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
           ),
         ),
         trailing ?? const SizedBox(width: 24),

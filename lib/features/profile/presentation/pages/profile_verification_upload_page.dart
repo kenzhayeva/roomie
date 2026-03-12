@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 ﻿import 'dart:io';
 
+=======
+import 'dart:io';
+
+import 'package:dio/dio.dart';
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,8 +13,13 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/app_primary_button.dart';
 import '../../../../core/widgets/dashed_border_container.dart';
+<<<<<<< HEAD
 import '../../data/verification_repository.dart';
 import '../widgets/profile_flow_header.dart';
+=======
+import '../widgets/profile_flow_header.dart';
+import 'package:roommate_app/features/profile/data/verification_repository.dart';
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
 class ProfileVerificationUploadPage extends ConsumerStatefulWidget {
   const ProfileVerificationUploadPage({super.key});
@@ -28,9 +39,17 @@ class _ProfileVerificationUploadPageState
   bool _isSubmitting = false;
 
   bool get _canSubmit =>
+<<<<<<< HEAD
       !_isSubmitting &&
       (_documentPath?.trim().isNotEmpty ?? false) &&
       (_selfiePath?.trim().isNotEmpty ?? false);
+=======
+      _documentPath != null &&
+      _documentPath!.isNotEmpty &&
+      _selfiePath != null &&
+      _selfiePath!.isNotEmpty &&
+      !_isSubmitting;
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
   Future<void> _pickDocument() async {
     final picked = await _imagePicker.pickImage(
@@ -64,6 +83,7 @@ class _ProfileVerificationUploadPageState
       await repo.submit();
 
       if (!mounted) return;
+<<<<<<< HEAD
 
       await showDialog<void>(
         context: context,
@@ -146,6 +166,92 @@ class _ProfileVerificationUploadPageState
           content: Text(
             'Не удалось отправить документы. Попробуйте снова.\n$e',
           ),
+=======
+      if (!mounted) return;
+
+showDialog(
+  context: context,
+  barrierDismissible: false,
+  builder: (context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 72,
+              height: 72,
+              decoration: const BoxDecoration(
+                color: Color(0xFFE8F5E9),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.check_circle_rounded,
+                color: Colors.green,
+                size: 42,
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'Документы отправлены!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              'Мы проверим данные в течение 24 часов.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.black,
+              ),
+            ),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF7C3AED),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  'Готово',
+                  style: TextStyle( 
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  },
+);
+    } on DioException catch (e) {
+      if (!mounted) return;
+      final serverMessage = e.response?.data is Map<String, dynamic>
+          ? (e.response?.data['message']?.toString())
+          : null;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(serverMessage ?? 'Не удалось отправить документы'),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
         ),
       );
     } finally {
@@ -190,11 +296,15 @@ class _ProfileVerificationUploadPageState
                       const SizedBox(height: 14),
 
                       // DOCUMENT
+<<<<<<< HEAD
                       _UploadBox(
                         path: _documentPath,
                         onTap: _pickDocument,
                         label: 'Загрузить фото документа',
                       ),
+=======
+                      _UploadBox(path: _documentPath, onTap: _pickDocument),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                       const SizedBox(height: 18),
 
                       // SELFIE
@@ -207,11 +317,15 @@ class _ProfileVerificationUploadPageState
                         ),
                       ),
                       const SizedBox(height: 14),
+<<<<<<< HEAD
                       _UploadBox(
                         path: _selfiePath,
                         onTap: _pickSelfie,
                         label: 'Сделать селфи',
                       ),
+=======
+                      _UploadBox(path: _selfiePath, onTap: _pickSelfie),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                       const SizedBox(height: 14),
 
                       Container(
@@ -232,7 +346,11 @@ class _ProfileVerificationUploadPageState
                               ),
                             ),
                             const SizedBox(height: 8),
+<<<<<<< HEAD
                             const _BulletLine(text: 'Фото четкое'),
+=======
+                            const _BulletLine(text: 'Фото чёткое'),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                             const SizedBox(height: 6),
                             const _BulletLine(text: 'Без бликов'),
                             const SizedBox(height: 6),
@@ -263,6 +381,7 @@ class _ProfileVerificationUploadPageState
 }
 
 class _UploadBox extends StatelessWidget {
+<<<<<<< HEAD
   const _UploadBox({
     required this.path,
     required this.onTap,
@@ -276,6 +395,16 @@ class _UploadBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final uploaded = path != null && path!.trim().isNotEmpty;
+=======
+  const _UploadBox({required this.path, required this.onTap});
+
+  final String? path;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final uploaded = path != null && path!.isNotEmpty;
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
     return InkWell(
       onTap: onTap,
@@ -312,8 +441,12 @@ class _UploadBox extends StatelessWidget {
                   ),
                   const SizedBox(height: 14),
                   Text(
+<<<<<<< HEAD
                     label,
                     textAlign: TextAlign.center,
+=======
+                    'Загрузить фото',
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           color: const Color(0xFF001561),
                           fontWeight: FontWeight.w600,
@@ -354,6 +487,10 @@ class _BulletLine extends StatelessWidget {
       ],
     );
   }
+<<<<<<< HEAD
 }
 
 
+=======
+}
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

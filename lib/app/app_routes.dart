@@ -20,7 +20,11 @@ class AppRoutes {
       '/profile-verification-upload';
   static const profileEdit = '/profile-edit';
   static const String shell = '/shell';
+<<<<<<< HEAD
    static const splash = '/splash';
+=======
+  static const adminVerifications = '/admin/verifications';
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
   const AppRoutes._();
 }

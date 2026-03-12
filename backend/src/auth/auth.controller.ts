@@ -3,6 +3,10 @@ import {
   Post,
   Get,
   Body,
+<<<<<<< HEAD
+=======
+  UseGuards,
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
@@ -34,8 +38,12 @@ export class AuthController {
   @ApiOperation({ summary: 'Register with email' })
   @ApiResponse({
     status: 201,
+<<<<<<< HEAD
     description:
       'OTP sent to email. Next step: VERIFY_EMAIL (new user or existing unverified)',
+=======
+    description: 'OTP sent to email. Next step: VERIFY_EMAIL',
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   })
   @ApiResponse({ status: 409, description: 'Email already registered' })
   async registerEmail(@Body() registerEmailDto: RegisterEmailDto) {
@@ -48,8 +56,12 @@ export class AuthController {
   @ApiOperation({ summary: 'Register with phone' })
   @ApiResponse({
     status: 201,
+<<<<<<< HEAD
     description:
       'OTP sent to phone. Next step: VERIFY_PHONE (new user or existing unverified)',
+=======
+    description: 'OTP sent to phone. Next step: VERIFY_PHONE',
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   })
   @ApiResponse({ status: 409, description: 'Phone already registered' })
   async registerPhone(@Body() registerPhoneDto: RegisterPhoneDto) {
@@ -128,4 +140,8 @@ export class AuthController {
   async getMe(@CurrentUser() user: any) {
     return this.authService.getMe(user.id);
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

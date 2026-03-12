@@ -4,6 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
+<<<<<<< HEAD
 import type { Express } from 'express';
 import { Prisma, UserRole, VerificationStatus } from '@prisma/client';
 
@@ -42,11 +43,19 @@ type DiscoverUser = UserPreview & {
   compatibility: number | null;
   compatibilityReasons: string[];
 };
+=======
+import { PrismaService } from '../prisma/prisma.service';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdatePasswordDto } from './dto/update-password.dto';
+import { VerificationStatus, UserRole } from '@prisma/client';
+import type { Express } from 'express';
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
+<<<<<<< HEAD
   async getRecommendations(currentUserId: string, page = 1, limit = 20) {
     return this.discoverUsers(currentUserId, { page, limit });
   }
@@ -534,16 +543,23 @@ export class UsersService {
     };
   }
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   async findOne(id: string) {
     const user = await this.prisma.user.findUnique({
       where: { id },
       select: {
         id: true,
         email: true,
+<<<<<<< HEAD
         phone: true,
         firstName: true,
         lastName: true,
         photos: true,
+=======
+        firstName: true,
+        lastName: true,
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
         gender: true,
         age: true,
         bio: true,
@@ -607,6 +623,7 @@ export class UsersService {
   }
 
   async updateAvatarFile(userId: string, file: Express.Multer.File) {
+<<<<<<< HEAD
     const avatarPath = `/uploads/avatars/${file.filename}`;
 
     return this.prisma.user.update({
@@ -622,5 +639,109 @@ export class UsersService {
         updatedAt: true,
       },
     });
+=======
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const avatarUrl = `/uploads/avatars/${file.filename}`;
+
+    const updated = await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        photos: [avatarUrl],
+      },
+      select: {
+        id: true,
+        photos: true,
+      },
+    });
+
+    return { avatarUrl: updated.photos[0] ?? null };
+  }
+
+  async getRecommendations(userId: string, page: number, limit: number) {
+    const safePage = page < 1 ? 1 : page;
+    const safeLimit = Math.min(Math.max(limit, 1), 50);
+    const skip = (safePage - 1) * safeLimit;
+
+    const baseWhere = {
+      role: UserRole.USER,
+      onboardingCompleted: true,
+      verificationStatus: VerificationStatus.VERIFIED,
+      NOT: { id: userId },
+    } as const;
+
+    const [users, total] = await Promise.all([
+      this.prisma.user.findMany({
+        where: baseWhere,
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: safeLimit,
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          age: true,
+          city: true,
+          bio: true,
+          searchDistrict: true,
+          photos: true,
+          createdAt: true,
+          occupationStatus: true,
+          searchBudgetMin: true,
+          searchBudgetMax: true,
+        },
+      }),
+      this.prisma.user.count({ where: baseWhere }),
+    ]);
+
+    const ids = users.map((u) => u.id);
+
+    const favorites = ids.length
+      ? await this.prisma.favoriteUser.findMany({
+          where: {
+            ownerId: userId,
+            targetUserId: { in: ids },
+          },
+          select: { targetUserId: true },
+        })
+      : [];
+
+    const favoriteSet = new Set(favorites.map((f) => f.targetUserId));
+
+    const data = users.map((u) => ({
+      id: u.id,
+      firstName: u.firstName,
+      lastName: u.lastName,
+      age: u.age,
+      city: u.city,
+      bio: u.bio,
+      searchDistrict: u.searchDistrict,
+      photos: u.photos,
+      createdAt: u.createdAt,
+      isSaved: favoriteSet.has(u.id),
+      occupationStatus: u.occupationStatus,
+      searchBudgetMin: u.searchBudgetMin,
+      searchBudgetMax: u.searchBudgetMax,
+    }));
+
+    const totalPages = total === 0 ? 0 : Math.ceil(total / safeLimit);
+
+    return {
+      data,
+      meta: {
+        page: safePage,
+        limit: safeLimit,
+        total,
+        totalPages,
+      },
+    };
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   }
 }

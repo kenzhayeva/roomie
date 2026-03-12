@@ -6,7 +6,10 @@ import '../features/auth/presentation/pages/bio_auth_page.dart';
 import '../features/auth/presentation/pages/verify_email_page.dart';
 import '../features/auth/presentation/pages/registration_page.dart';
 import '../features/auth/presentation/pages/login_page.dart';
+<<<<<<< HEAD
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 import '../features/profile/presentation/pages/profile_intro_page.dart';
 import '../features/profile/presentation/pages/gender_page.dart';
 import '../features/profile/presentation/pages/location_page.dart';
@@ -18,6 +21,7 @@ import '../features/profile/presentation/pages/profile_finish_page.dart';
 import '../features/profile/presentation/pages/profile_completed_page.dart';
 import '../features/profile/presentation/pages/profile_verification_page.dart';
 import '../features/profile/presentation/pages/profile_verification_upload_page.dart';
+<<<<<<< HEAD
 import '../features/profile/presentation/pages/profile_edit_page.dart';
 
 import '../features/home/presentation/pages/home_page.dart';
@@ -27,6 +31,16 @@ import '../features/roomie_splash_page.dart';
 
 import 'app_routes.dart';
 import 'app_theme.dart';
+=======
+import '../features/home/presentation/pages/home_page.dart';
+import '../features/main/main_shell.dart';
+import '../features/onboarding/presentation/pages/welcome_page.dart';
+import 'app_routes.dart';
+import 'app_theme.dart';
+import 'package:roommate_app/features/profile/presentation/pages/profile_edit_page.dart';
+import '../features/admin/presentation/pages/admin_verifications_page.dart';
+
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
 class RoommateApp extends StatelessWidget {
   const RoommateApp({super.key});
@@ -37,7 +51,12 @@ class RoommateApp extends StatelessWidget {
       title: AppStrings.appName,
       theme: AppTheme.light(),
       debugShowCheckedModeBanner: false,
+<<<<<<< HEAD
       initialRoute: AppRoutes.splash,
+=======
+      initialRoute: AppRoutes.register,
+      //initialRoute: AppRoutes.adminVerifications,
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       routes: {
         AppRoutes.welcome: (context) => const WelcomePage(),
         AppRoutes.auth: (context) => const BioAuthPage(),
@@ -45,6 +64,7 @@ class RoommateApp extends StatelessWidget {
         AppRoutes.otp: (context) => const OtpPage(),
         AppRoutes.register: (context) => const RegistrationPage(),
         AppRoutes.verifyEmail: (context) => const VerifyEmailPage(),
+<<<<<<< HEAD
 
         // Onboarding
         AppRoutes.profileIntro: (context) => const ProfileIntroPage(),
@@ -58,20 +78,39 @@ class RoommateApp extends StatelessWidget {
         // Profile
         AppRoutes.profile: (context) => const ProfilePage(),
         AppRoutes.profileEdit: (context) => const ProfileEditPage(),
+=======
+        AppRoutes.profileIntro: (context) => const ProfileIntroPage(),
+        AppRoutes.gender: (context) => const GenderPage(),
+        AppRoutes.location: (context) => const LocationPage(),
+        AppRoutes.home: (context) => const MainShell(),
+        AppRoutes.profile: (context) => const ProfilePage(),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
         AppRoutes.profileAbout: (context) => const ProfileAboutPage(),
         AppRoutes.profileLifestyle: (context) => const ProfileLifestylePage(),
         AppRoutes.profileSearch: (context) => const ProfileSearchPage(),
         AppRoutes.profileFinish: (context) => const ProfileFinishPage(),
         AppRoutes.profileCompleted: (context) => const ProfileCompletedPage(),
+<<<<<<< HEAD
 
         // Verification
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
         AppRoutes.profileVerification: (context) =>
             const ProfileVerificationPage(),
         AppRoutes.profileVerificationUpload: (context) =>
             const ProfileVerificationUploadPage(),
+<<<<<<< HEAD
                   AppRoutes.splash: (context) => const RoomieSplashPage(),
 
 
+=======
+          
+       AppRoutes.profileEdit: (_) =>  ProfileEditPage(),
+
+        AppRoutes.shell: (context) => const MainShell(),
+
+        AppRoutes.adminVerifications: (context) => const AdminVerificationsPage(),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       },
     );
   }

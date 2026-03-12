@@ -78,13 +78,19 @@ class VerificationRepository {
       options: Options(contentType: 'multipart/form-data'),
     );
 
+<<<<<<< HEAD
     return (res.data?['selfieUrl'] as String?) ?? (res.data?['url'] as String?);
+=======
+    return (res.data?['selfieUrl'] as String?) ??
+        (res.data?['url'] as String?);
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   }
 
   Future<void> submit() async {
     await _dio.post('/verification/submit');
   }
 }
+<<<<<<< HEAD
 
 final verificationRepositoryProvider = Provider<VerificationRepository>((ref) {
   return VerificationRepository(ref.read(dioProvider));
@@ -93,3 +99,15 @@ final verificationRepositoryProvider = Provider<VerificationRepository>((ref) {
 final verificationMeProvider = FutureProvider<VerificationMe>((ref) async {
   return ref.read(verificationRepositoryProvider).getMe();
 });
+=======
+ 
+final verificationRepositoryProvider =
+    Provider<VerificationRepository>((ref) {
+  return VerificationRepository(ref.read(dioProvider));
+});
+
+final verificationMeProvider =
+    FutureProvider<VerificationMe>((ref) async {
+  return ref.read(verificationRepositoryProvider).getMe();
+});
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

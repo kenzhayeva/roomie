@@ -81,7 +81,13 @@ class _ProfileIntroPageState extends ConsumerState<ProfileIntroPage> {
       _isSubmitting = true;
     });
     try {
+<<<<<<< HEAD
       final result = await ref.read(onboardingRepositoryProvider).submitNameAge(
+=======
+      final result = await ref
+          .read(onboardingRepositoryProvider)
+          .submitNameAge(
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
             NameAgePayload(firstName: _nameController.text.trim(), age: age),
           );
       final prefs = await SharedPreferences.getInstance();

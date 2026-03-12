@@ -3,7 +3,10 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateListingDto } from './dto/create-listing.dto';
 import { UpdateListingDto } from './dto/update-listing.dto';
 import { QueryListingDto } from './dto/query-listing.dto';
+<<<<<<< HEAD
 import { FilterListingDto } from './dto/filter-listing.dto';
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
 @Injectable()
 export class ListingsService {
@@ -109,6 +112,7 @@ export class ListingsService {
     };
   }
 
+<<<<<<< HEAD
   async filter(queryDto: FilterListingDto) {
     const {
       page = 1,
@@ -225,6 +229,8 @@ export class ListingsService {
     };
   }
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   async findOne(id: string) {
     const listing = await this.prisma.listing.findUnique({
       where: { id },

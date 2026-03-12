@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 CREATE TYPE "OccupationStatus" AS ENUM ('STUDY', 'WORK', 'STUDY_WORK');
 CREATE TYPE "Chronotype" AS ENUM ('OWL', 'LARK');
 CREATE TYPE "NoisePreference" AS ENUM ('QUIET', 'SOCIAL');
@@ -8,6 +11,7 @@ CREATE TYPE "PetsPreference" AS ENUM ('WITH_PETS', 'NO_PETS');
 CREATE TYPE "RoommateGenderPreference" AS ENUM ('MALE', 'FEMALE', 'ANY');
 CREATE TYPE "VerificationStatus" AS ENUM ('NONE', 'PENDING', 'VERIFIED', 'REJECTED');
 
+<<<<<<< HEAD
 -- CreateEnum
 CREATE TYPE "OccupationStatus" AS ENUM ('STUDY', 'WORK', 'STUDY_WORK');
 
@@ -34,12 +38,17 @@ CREATE TYPE "VerificationStatus" AS ENUM ('NONE', 'PENDING', 'VERIFIED', 'REJECT
 
 -- Alter existing enum OnboardingStep
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 ALTER TYPE "OnboardingStep" ADD VALUE IF NOT EXISTS 'ABOUT';
 ALTER TYPE "OnboardingStep" ADD VALUE IF NOT EXISTS 'LIFESTYLE';
 ALTER TYPE "OnboardingStep" ADD VALUE IF NOT EXISTS 'SEARCH';
 ALTER TYPE "OnboardingStep" ADD VALUE IF NOT EXISTS 'FINALIZE';
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 ALTER TABLE "users"
   ADD COLUMN "occupationStatus" "OccupationStatus",
   ADD COLUMN "university" TEXT,

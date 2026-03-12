@@ -20,7 +20,10 @@ import { ListingsService } from './listings.service';
 import { CreateListingDto } from './dto/create-listing.dto';
 import { UpdateListingDto } from './dto/update-listing.dto';
 import { QueryListingDto } from './dto/query-listing.dto';
+<<<<<<< HEAD
 import { FilterListingDto } from './dto/filter-listing.dto';
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { OwnershipGuard } from '../common/guards/ownership.guard';
 
@@ -30,6 +33,7 @@ import { OwnershipGuard } from '../common/guards/ownership.guard';
 export class ListingsController {
   constructor(private readonly listingsService: ListingsService) {}
 
+<<<<<<< HEAD
   @Get('filter')
   @ApiOperation({
     summary:
@@ -121,6 +125,8 @@ export class ListingsController {
     return this.listingsService.filter(queryDto);
   }
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   @Post()
   @ApiOperation({ summary: 'Create a new listing' })
   @ApiResponse({ status: 201, description: 'Listing created successfully' })

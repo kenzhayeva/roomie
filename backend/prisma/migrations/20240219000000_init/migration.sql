@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 
+=======
+-- Imported init migration
+-- (see external backend lib)
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
 CREATE TYPE "Gender" AS ENUM ('MALE', 'FEMALE', 'OTHER', 'PREFER_NOT_TO_SAY');
 CREATE TYPE "RoomType" AS ENUM ('SINGLE', 'DOUBLE', 'SHARED', 'ENTIRE_PLACE');
 
+<<<<<<< HEAD
 -- CreateEnum
 CREATE TYPE "Gender" AS ENUM ('MALE', 'FEMALE', 'OTHER', 'PREFER_NOT_TO_SAY');
 
@@ -10,6 +16,8 @@ CREATE TYPE "Gender" AS ENUM ('MALE', 'FEMALE', 'OTHER', 'PREFER_NOT_TO_SAY');
 CREATE TYPE "RoomType" AS ENUM ('SINGLE', 'DOUBLE', 'SHARED', 'ENTIRE_PLACE');
 
 -- CreateTable
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
@@ -25,7 +33,10 @@ CREATE TABLE "users" (
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 CREATE TABLE "refresh_tokens" (
     "id" TEXT NOT NULL,
     "token" TEXT NOT NULL,
@@ -36,7 +47,10 @@ CREATE TABLE "refresh_tokens" (
     CONSTRAINT "refresh_tokens_pkey" PRIMARY KEY ("id")
 );
 
+<<<<<<< HEAD
 -- CreateTable
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 CREATE TABLE "listings" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
@@ -59,7 +73,10 @@ CREATE TABLE "listings" (
     CONSTRAINT "listings_pkey" PRIMARY KEY ("id")
 );
 
+<<<<<<< HEAD
 -- CreateTable
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 CREATE TABLE "saved_listings" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
@@ -78,6 +95,7 @@ ALTER TABLE "listings" ADD CONSTRAINT "listings_ownerId_fkey" FOREIGN KEY ("owne
 ALTER TABLE "saved_listings" ADD CONSTRAINT "saved_listings_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE "saved_listings" ADD CONSTRAINT "saved_listings_listingId_fkey" FOREIGN KEY ("listingId") REFERENCES "listings"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
+<<<<<<< HEAD
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
@@ -98,3 +116,5 @@ ALTER TABLE "saved_listings" ADD CONSTRAINT "saved_listings_userId_fkey" FOREIGN
 
 -- AddForeignKey
 ALTER TABLE "saved_listings" ADD CONSTRAINT "saved_listings_listingId_fkey" FOREIGN KEY ("listingId") REFERENCES "listings"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

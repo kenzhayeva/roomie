@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿import 'package:flutter/material.dart';
+=======
+import 'package:flutter/material.dart';
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
 
@@ -43,7 +47,13 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
 
     setState(() => _isSubmitting = true);
     try {
+<<<<<<< HEAD
       final result = await ref.read(authRepositoryProvider).register(
+=======
+      final result = await ref
+          .read(authRepositoryProvider)
+          .register(
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
             useEmail: state.useEmail,
             identity: identity,
             password: password,
@@ -321,5 +331,8 @@ class _RememberRow extends StatelessWidget {
     );
   }
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

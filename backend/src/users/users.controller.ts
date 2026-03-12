@@ -16,7 +16,10 @@ import {
   ApiBody,
   ApiConsumes,
   ApiOperation,
+<<<<<<< HEAD
   ApiParam,
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   ApiQuery,
   ApiResponse,
   ApiTags,
@@ -26,12 +29,18 @@ import { diskStorage } from 'multer';
 import { extname, join } from 'path';
 import * as fs from 'fs';
 import type { Express } from 'express';
+<<<<<<< HEAD
 
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { DiscoverUsersQueryDto } from './dto/discover-users-query.dto';
 import { FilterUsersQueryDto } from './dto/filter-users-query.dto';
+=======
+import { UsersService } from './users.service';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdatePasswordDto } from './dto/update-password.dto';
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 
 const MAX_AVATAR_SIZE = 5 * 1024 * 1024;
@@ -64,7 +73,12 @@ function createAvatarMulterOptions() {
         const safeExt = ['.jpg', '.jpeg', '.png', '.webp'].includes(ext)
           ? ext
           : '';
+<<<<<<< HEAD
         cb(null, `${timestamp}-${random}${safeExt}`);
+=======
+        const filename = `${timestamp}-${random}${safeExt}`;
+        cb(null, filename);
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       },
     }),
     fileFilter: (req: any, file: Express.Multer.File, cb: any) => {
@@ -78,16 +92,27 @@ function createAvatarMulterOptions() {
       }
       cb(null, true);
     },
+<<<<<<< HEAD
     limits: { fileSize: MAX_AVATAR_SIZE },
   };
 }
 
 @ApiTags('users', 'user-profile')
+=======
+    limits: {
+      fileSize: MAX_AVATAR_SIZE,
+    },
+  };
+}
+
+@ApiTags('users')
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 @Controller('users')
 @ApiBearerAuth()
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+<<<<<<< HEAD
   @Get('filter')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Filter users (roommates) by preferences' })
@@ -165,6 +190,8 @@ export class UsersController {
     return this.usersService.filterUsers(user.id, query);
   }
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   @Get('recommendations')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Get recommended users for current user' })
@@ -191,6 +218,7 @@ export class UsersController {
     return this.usersService.getRecommendations(user.id, pageNum, limitNum);
   }
 
+<<<<<<< HEAD
   @Get('recommendations/personal')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
@@ -265,6 +293,8 @@ export class UsersController {
     return this.usersService.discoverUsers(user.id, query);
   }
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   @Get(':id')
   @ApiOperation({ summary: 'Get user by ID' })
   @ApiResponse({ status: 200, description: 'User found' })
@@ -276,7 +306,14 @@ export class UsersController {
   @Patch('me')
   @ApiOperation({ summary: 'Update current user' })
   @ApiResponse({ status: 200, description: 'User updated successfully' })
+<<<<<<< HEAD
   async updateMe(@CurrentUser() user: any, @Body() updateUserDto: UpdateUserDto) {
+=======
+  async updateMe(
+    @CurrentUser() user: any,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     return this.usersService.updateMe(user.id, updateUserDto);
   }
 
@@ -299,7 +336,14 @@ export class UsersController {
     schema: {
       type: 'object',
       properties: {
+<<<<<<< HEAD
         file: { type: 'string', format: 'binary' },
+=======
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       },
     },
   })
@@ -318,4 +362,8 @@ export class UsersController {
     }
     return this.usersService.updateAvatarFile(user.id, file);
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

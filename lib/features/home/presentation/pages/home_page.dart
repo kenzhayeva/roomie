@@ -1,11 +1,21 @@
+<<<<<<< HEAD
+=======
+import 'dart:collection';
+
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_colors.dart';
+<<<<<<< HEAD
 import '../../data/filter_providers.dart' as filter;
 import '../../data/home_providers.dart' as home;
 import '../../data/recommended_user_model.dart';
 import 'filter_page.dart';
+=======
+import '../../data/home_providers.dart';
+import '../../data/recommended_user_model.dart';
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 import 'package:roommate_app/features/people/data/favorites_users_providers.dart';
 import 'package:roommate_app/features/people/data/hidden_users_provider.dart';
 import 'package:roommate_app/features/people/ui/recommended_user_profile_page.dart';
@@ -18,6 +28,7 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
+<<<<<<< HEAD
   void _msg(String text) {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
@@ -82,16 +93,74 @@ class _HomePageState extends ConsumerState<HomePage> {
     ref.invalidate(filter.filteredUsersProvider);
     ref.invalidate(home.recommendedUsersProvider);
   }
+=======
+
+  void _msg(String text) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(text)));
+  }
+
+  Future<void> _hideUser(RecommendedUser user) async {
+  final repo = ref.read(homeRepositoryProvider);
+
+  try {
+    if (user.isSaved) {
+      await repo.unsaveUser(user.id);
+    }
+
+    ref.read(hiddenUserIdsProvider.notifier).hide(user.id);
+
+    ref.invalidate(recommendedUsersProvider);
+    ref.invalidate(favoriteUsersProvider);
+
+    _msg('Скрыто ✅');
+  } catch (e) {
+    _msg('Ошибка: $e');
+  }
+}
+
+  Future<void> _toggleSave(RecommendedUser user) async {
+  final repo = ref.read(homeRepositoryProvider);
+
+  try {
+    if (user.isSaved) {
+      await repo.unsaveUser(user.id);
+      _msg('Удалено из сохранённых');
+    } else {
+      await repo.saveUser(user.id);
+      _msg('Сохранено ✅');
+    }
+
+    ref.invalidate(recommendedUsersProvider);
+    ref.invalidate(favoriteUsersProvider);
+  } catch (e) {
+    _msg('Ошибка: $e');
+  }
+}
+  void _openDetails(RecommendedUser user) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) => RecommendedUserProfilePage(user: user),
+    ),
+  );
+}
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+<<<<<<< HEAD
     final filterState = ref.watch(filter.filterStateProvider);
     final hasFilters = filterState.hasAnyFilter;
 
     final asyncUsers = hasFilters
         ? ref.watch(filter.filteredUsersProvider)
         : ref.watch(home.recommendedUsersProvider);
+=======
+    final asyncUsers = ref.watch(recommendedUsersProvider);
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
     return Scaffold(
       backgroundColor: const Color(0xFFF3F4F6),
@@ -112,6 +181,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                   const Spacer(),
                   IconButton(
+<<<<<<< HEAD
                     onPressed: _openFilters,
                     icon: Icon(
                       Icons.tune,
@@ -165,18 +235,47 @@ class _HomePageState extends ConsumerState<HomePage> {
                               : 'Нет подходящих анкет',
                         ),
                       );
+=======
+                    onPressed: () {},
+                    icon: const Icon(Icons.tune, color: Color(0xFF001561)),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Expanded(
+                child: asyncUsers.when(
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  error: (e, _) => Center(child: Text('Ошибка: $e')),
+                  data: (users) {
+                    final hiddenIds = ref.watch(hiddenUserIdsProvider);
+                      final visible = users
+                      .where((u) => !hiddenIds.contains(u.id))
+                      .toList();
+
+                    if (visible.isEmpty) {
+                      return const Center(child: Text('Нет подходящих анкет'));
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                     }
 
                     return RefreshIndicator(
                       onRefresh: () async {
+<<<<<<< HEAD
                         ref.invalidate(home.recommendedUsersProvider);
                         ref.invalidate(filter.filteredUsersProvider);
+=======
+                        ref.invalidate(recommendedUsersProvider);
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                       },
                       child: ListView.separated(
                         padding: const EdgeInsets.only(bottom: 12),
                         itemCount: visible.length,
+<<<<<<< HEAD
                         separatorBuilder: (_, __) =>
                             const SizedBox(height: 16),
+=======
+                        separatorBuilder: (_, __) => const SizedBox(height: 16),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                         itemBuilder: (context, index) {
                           final user = visible[index];
                           return _RoommateCard(
@@ -245,6 +344,7 @@ class _RoommateCard extends StatelessWidget {
                   children: [
                     AspectRatio(
                       aspectRatio: 1.23,
+<<<<<<< HEAD
                       child: Image.network(
                         photo,
                         fit: BoxFit.cover,
@@ -260,6 +360,9 @@ class _RoommateCard extends StatelessWidget {
                           ),
                         ),
                       ),
+=======
+                      child: Image.network(photo, fit: BoxFit.cover),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                     ),
                     Positioned(
                       right: 12,
@@ -310,6 +413,7 @@ class _RoommateCard extends StatelessWidget {
                       fontSize: 16,
                     ),
                   ),
+<<<<<<< HEAD
                   const SizedBox(height: 8),
                   _InfoRow(
                     icon: Icons.map_outlined,
@@ -329,6 +433,30 @@ class _RoommateCard extends StatelessWidget {
                     value: user.budgetText,
                   ),
                   const SizedBox(height: 12),
+=======
+
+
+ 
+const SizedBox(height: 8),
+_InfoRow(
+  icon: Icons.map_outlined,
+  label: 'Локация',
+  value: user.locationText,
+),
+const SizedBox(height: 8),
+_InfoRow(
+  icon: Icons.person_outline,
+  label: 'Статус',
+  value: user.statusText, 
+),
+const SizedBox(height: 8),
+_InfoRow(
+  icon: Icons.account_balance_wallet_outlined,
+  label: 'Бюджет',
+  value: user.budgetText, 
+),
+
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                   Row(
                     children: [
                       Expanded(

@@ -9,8 +9,12 @@ class SavedRepository {
   /// GET /favorites/users?page&limit
   /// Returns response like: { data: [...], meta: {...} }  (ең жиі формат)
   /// Егер сенде { items: [...] } болса, төменде айтып кетем.
+<<<<<<< HEAD
   Future<List<RecommendedUser>> getSavedUsers(
       {int page = 1, int limit = 50}) async {
+=======
+  Future<List<RecommendedUser>> getSavedUsers({int page = 1, int limit = 50}) async {
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     final res = await _dio.get<Map<String, dynamic>>(
       '/favorites/users',
       queryParameters: {'page': page, 'limit': limit},
@@ -56,4 +60,8 @@ class SavedRepository {
   Future<void> unsaveUser(String targetUserId) async {
     await _dio.delete('/favorites/users/$targetUserId');
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿import 'dart:io';
+=======
+import 'dart:io';
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -6,12 +10,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../app/app_routes.dart';
+<<<<<<< HEAD
 import '../../../../core/network/api_config.dart';
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/onboarding_route_mapper.dart';
 import '../../../../core/widgets/app_primary_button.dart';
 import '../../../../core/widgets/dashed_border_container.dart';
+<<<<<<< HEAD
 import '../../data/me_repository.dart';
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 import '../../data/onboarding_repository.dart';
 import '../widgets/profile_flow_header.dart';
 import '../widgets/profile_step_progress.dart';
@@ -30,8 +40,11 @@ class _ProfileFinishPageState extends ConsumerState<ProfileFinishPage> {
 
   String? _photoPath;
   bool _isSubmitting = false;
+<<<<<<< HEAD
   bool _fromEdit = false;
   bool _argsParsed = false;
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
   static const int _maxChars = 300;
 
@@ -39,6 +52,7 @@ class _ProfileFinishPageState extends ConsumerState<ProfileFinishPage> {
   bool get _isValid => _hasPhoto && _aboutController.text.trim().isNotEmpty;
 
   @override
+<<<<<<< HEAD
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_argsParsed) return;
@@ -50,6 +64,8 @@ class _ProfileFinishPageState extends ConsumerState<ProfileFinishPage> {
   }
 
   @override
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   void initState() {
     super.initState();
     _prefillFromStatus();
@@ -70,7 +86,11 @@ class _ProfileFinishPageState extends ConsumerState<ProfileFinishPage> {
       final bio = status.profile['bio'] as String?;
       final photos =
           (status.profile['photos'] as List?)?.whereType<String>().toList() ??
+<<<<<<< HEAD
               <String>[];
+=======
+          <String>[];
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       if (!mounted) return;
       setState(() {
         if (bio != null && bio.isNotEmpty) {
@@ -99,6 +119,7 @@ class _ProfileFinishPageState extends ConsumerState<ProfileFinishPage> {
     if (!_isValid || _isSubmitting || _photoPath == null) return;
     setState(() => _isSubmitting = true);
     try {
+<<<<<<< HEAD
       var photoForProfile = _photoPath!.trim();
       final isRemotePhoto =
           photoForProfile.startsWith('http://') ||
@@ -130,6 +151,21 @@ class _ProfileFinishPageState extends ConsumerState<ProfileFinishPage> {
             : OnboardingRouteMapper.fromStep(nextStep);
         Navigator.of(context).pushNamed(route);
       }
+=======
+      final nextStep = await ref
+          .read(onboardingRepositoryProvider)
+          .submitFinalizeStep(
+            FinalizeStepPayload(
+              bio: _aboutController.text.trim(),
+              photos: <String>[_photoPath!],
+            ),
+          );
+      if (!mounted) return;
+      final route = nextStep == null
+          ? AppRoutes.profileCompleted
+          : OnboardingRouteMapper.fromStep(nextStep);
+      Navigator.of(context).pushNamed(route);
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     } on DioException catch (e) {
       if (!mounted) return;
       final serverMessage = e.response?.data is Map<String, dynamic>
@@ -156,11 +192,17 @@ class _ProfileFinishPageState extends ConsumerState<ProfileFinishPage> {
             children: [
               ProfileFlowHeader(
                 progress: const ProfileStepProgress(activeStep: 4),
+<<<<<<< HEAD
                 onBack: () => _fromEdit
                     ? Navigator.of(context).pop()
                     : Navigator.of(
                         context,
                       ).pushReplacementNamed(AppRoutes.profileSearch),
+=======
+                onBack: () => Navigator.of(
+                  context,
+                ).pushReplacementNamed(AppRoutes.profileSearch),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
               ),
               const SizedBox(height: 20),
               Expanded(
@@ -193,6 +235,7 @@ class _ProfileFinishPageState extends ConsumerState<ProfileFinishPage> {
                         focusNode: _aboutFocusNode,
                         maxLines: 5,
                         maxLength: _maxChars,
+<<<<<<< HEAD
                         buildCounter: (
                           context, {
                           required int currentLength,
@@ -200,6 +243,15 @@ class _ProfileFinishPageState extends ConsumerState<ProfileFinishPage> {
                           required int? maxLength,
                         }) =>
                             const SizedBox.shrink(),
+=======
+                        buildCounter:
+                            (
+                              context, {
+                              required int currentLength,
+                              required bool isFocused,
+                              required int? maxLength,
+                            }) => const SizedBox.shrink(),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                         style: const TextStyle(
                           color: Color(0xFF001561),
                           fontWeight: FontWeight.w500,
@@ -272,6 +324,7 @@ class _PhotoPicker extends StatelessWidget {
     final hasPhoto = photoPath != null && photoPath!.isNotEmpty;
 
     if (hasPhoto) {
+<<<<<<< HEAD
       final raw = photoPath!.trim();
       final isRemote =
           raw.startsWith('http://') ||
@@ -284,18 +337,28 @@ class _PhotoPicker extends StatelessWidget {
           : null;
       final file = File(raw);
 
+=======
+      final file = File(photoPath!);
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       return InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(14),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(14),
+<<<<<<< HEAD
           child: (isRemote && remoteUrl != null)
               ? Image.network(
                   remoteUrl,
+=======
+          child: file.existsSync()
+              ? Image.file(
+                  file,
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                   height: 174,
                   width: double.infinity,
                   fit: BoxFit.cover,
                 )
+<<<<<<< HEAD
               : file.existsSync()
                   ? Image.file(
                       file,
@@ -303,6 +366,8 @@ class _PhotoPicker extends StatelessWidget {
                       width: double.infinity,
                       fit: BoxFit.cover,
                     )
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
               : Container(
                   height: 174,
                   width: double.infinity,
@@ -341,18 +406,31 @@ class _PhotoPicker extends StatelessWidget {
             Text(
               'Добавить фото',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
+<<<<<<< HEAD
                     color: const Color(0xFF001561),
                     fontWeight: FontWeight.w700,
                     fontSize: 16,
                   ),
+=======
+                color: const Color(0xFF001561),
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
             ),
             const SizedBox(height: 4),
             Text(
               'Минимум 1 фото',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
+<<<<<<< HEAD
                     color: const Color(0xFFB0B5C5),
                     fontWeight: FontWeight.w500,
                   ),
+=======
+                color: const Color(0xFFB0B5C5),
+                fontWeight: FontWeight.w500,
+              ),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
             ),
           ],
         ),
@@ -360,5 +438,8 @@ class _PhotoPicker extends StatelessWidget {
     );
   }
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

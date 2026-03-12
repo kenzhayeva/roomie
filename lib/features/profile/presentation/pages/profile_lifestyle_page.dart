@@ -21,12 +21,16 @@ class ProfileLifestylePage extends ConsumerStatefulWidget {
 class _ProfileLifestylePageState extends ConsumerState<ProfileLifestylePage> {
   final Map<int, int> _selectedByGroup = <int, int>{};
   bool _isSubmitting = false;
+<<<<<<< HEAD
   bool _fromEdit = false;
   bool _argsParsed = false;
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
   bool get _isValid => _selectedByGroup.length == 5;
 
   @override
+<<<<<<< HEAD
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_argsParsed) return;
@@ -38,6 +42,8 @@ class _ProfileLifestylePageState extends ConsumerState<ProfileLifestylePage> {
   }
 
   @override
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   void initState() {
     super.initState();
     _prefillFromStatus();
@@ -48,7 +54,11 @@ class _ProfileLifestylePageState extends ConsumerState<ProfileLifestylePage> {
       final status = await ref.read(onboardingRepositoryProvider).getStatus();
       final lifestyle =
           (status.profile['lifestyle'] as Map?)?.cast<String, dynamic>() ??
+<<<<<<< HEAD
               <String, dynamic>{};
+=======
+          <String, dynamic>{};
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       if (!mounted) return;
       setState(() {
         if (lifestyle['chronotype'] == 'OWL') {
@@ -95,6 +105,7 @@ class _ProfileLifestylePageState extends ConsumerState<ProfileLifestylePage> {
             LifestyleStepPayload(
               chronotype: _selectedByGroup[0] == 0 ? 'OWL' : 'LARK',
               noisePreference: _selectedByGroup[1] == 0 ? 'QUIET' : 'SOCIAL',
+<<<<<<< HEAD
               personalityType:
                   _selectedByGroup[2] == 0 ? 'INTROVERT' : 'EXTROVERT',
               smokingPreference:
@@ -110,6 +121,22 @@ class _ProfileLifestylePageState extends ConsumerState<ProfileLifestylePage> {
         final route = OnboardingRouteMapper.fromStep(nextStep);
         Navigator.of(context).pushNamed(route);
       }
+=======
+              personalityType: _selectedByGroup[2] == 0
+                  ? 'INTROVERT'
+                  : 'EXTROVERT',
+              smokingPreference: _selectedByGroup[3] == 0
+                  ? 'SMOKER'
+                  : 'NON_SMOKER',
+              petsPreference: _selectedByGroup[4] == 0
+                  ? 'WITH_PETS'
+                  : 'NO_PETS',
+            ),
+          );
+      if (!mounted) return;
+      final route = OnboardingRouteMapper.fromStep(nextStep);
+      Navigator.of(context).pushNamed(route);
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     } on DioException catch (e) {
       if (!mounted) return;
       final serverMessage = e.response?.data is Map<String, dynamic>
@@ -138,11 +165,17 @@ class _ProfileLifestylePageState extends ConsumerState<ProfileLifestylePage> {
             children: [
               ProfileFlowHeader(
                 progress: const ProfileStepProgress(activeStep: 2),
+<<<<<<< HEAD
                 onBack: () => _fromEdit
                     ? Navigator.of(context).pop()
                     : Navigator.of(
                         context,
                       ).pushReplacementNamed(AppRoutes.profileAbout),
+=======
+                onBack: () => Navigator.of(
+                  context,
+                ).pushReplacementNamed(AppRoutes.profileAbout),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
               ),
               const SizedBox(height: 20),
               Expanded(
@@ -352,9 +385,15 @@ class _LifestyleCard extends StatelessWidget {
             Text(
               option.label,
               style: Theme.of(context).textTheme.titleSmall?.copyWith(
+<<<<<<< HEAD
                     color: const Color(0xFF001561),
                     fontWeight: FontWeight.w600,
                   ),
+=======
+                color: const Color(0xFF001561),
+                fontWeight: FontWeight.w600,
+              ),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
             ),
           ],
         ),

@@ -14,7 +14,10 @@ import { OnboardingModule } from './onboarding/onboarding.module';
 import { VerificationModule } from './verification/verification.module';
 import { AdminVerificationsModule } from './admin-verifications/admin-verifications.module';
 import { FavoritesUsersModule } from './favorites-users/favorites-users.module';
+<<<<<<< HEAD
 import { ChatModule } from './chat/chat.module';
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
 @Module({
   imports: [
@@ -35,7 +38,10 @@ import { ChatModule } from './chat/chat.module';
     VerificationModule,
     AdminVerificationsModule,
     FavoritesUsersModule,
+<<<<<<< HEAD
     ChatModule,
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   ],
   controllers: [AppController],
   providers: [AppService],

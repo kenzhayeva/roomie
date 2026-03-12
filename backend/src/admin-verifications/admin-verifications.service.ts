@@ -4,10 +4,15 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+<<<<<<< HEAD
 import { Prisma, UserRole, VerificationStatus } from '@prisma/client';
 import { RejectVerificationDto } from './dto/reject-verification.dto';
 import { UpdateUserRoleDto } from './dto/update-user-role.dto';
 import { SetUserBanDto } from './dto/set-user-ban.dto';
+=======
+import { Prisma, VerificationStatus } from '@prisma/client';
+import { RejectVerificationDto } from './dto/reject-verification.dto';
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
 type Reviewer = Prisma.UserGetPayload<{
   select: {
@@ -24,6 +29,7 @@ type Reviewer = Prisma.UserGetPayload<{
 export class AdminVerificationsService {
   constructor(private prisma: PrismaService) {}
 
+<<<<<<< HEAD
   private buildDisplayName(user: {
     firstName: string | null;
     lastName: string | null;
@@ -40,6 +46,12 @@ export class AdminVerificationsService {
         verificationStatus: {
           in: [VerificationStatus.PENDING, VerificationStatus.NONE],
         },
+=======
+  async getPendingVerifications() {
+    const users = await this.prisma.user.findMany({
+      where: {
+        verificationStatus: VerificationStatus.PENDING,
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       },
       select: {
         id: true,
@@ -53,14 +65,27 @@ export class AdminVerificationsService {
         updatedAt: true,
         createdAt: true,
       },
+<<<<<<< HEAD
       orderBy: { updatedAt: 'desc' },
+=======
+      orderBy: {
+        updatedAt: 'desc',
+      },
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     });
 
     const appUrl = process.env.APP_URL;
 
     return users.map((user) => ({
       id: user.id,
+<<<<<<< HEAD
       name: this.buildDisplayName(user),
+=======
+      name:
+        user.firstName && user.lastName
+          ? `${user.firstName} ${user.lastName}`
+          : user.firstName || user.email || user.phone || 'Unknown',
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       email: user.email,
       phone: user.phone,
       documentUrl: user.verificationDocumentUrl,
@@ -79,6 +104,7 @@ export class AdminVerificationsService {
     }));
   }
 
+<<<<<<< HEAD
   async getUsers(search?: string) {
     const q = (search ?? '').trim();
     const where: Prisma.UserWhereInput =
@@ -179,6 +205,8 @@ export class AdminVerificationsService {
     return updated;
   }
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   async getVerificationDetails(userId: string) {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
@@ -201,7 +229,13 @@ export class AdminVerificationsService {
       },
     });
 
+<<<<<<< HEAD
     if (!user) throw new NotFoundException('User not found');
+=======
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
     let reviewedByUser: Reviewer | null = null;
     if (user.verificationReviewedBy) {
@@ -222,7 +256,14 @@ export class AdminVerificationsService {
 
     return {
       id: user.id,
+<<<<<<< HEAD
       name: this.buildDisplayName(user),
+=======
+      name:
+        user.firstName && user.lastName
+          ? `${user.firstName} ${user.lastName}`
+          : user.firstName || user.email || user.phone || 'Unknown',
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       email: user.email,
       phone: user.phone,
       age: user.age,
@@ -243,7 +284,17 @@ export class AdminVerificationsService {
       verificationReviewedBy: reviewedByUser
         ? {
             id: reviewedByUser.id,
+<<<<<<< HEAD
             name: this.buildDisplayName(reviewedByUser),
+=======
+            name:
+              reviewedByUser.firstName && reviewedByUser.lastName
+                ? `${reviewedByUser.firstName} ${reviewedByUser.lastName}`
+                : reviewedByUser.firstName ||
+                  reviewedByUser.email ||
+                  reviewedByUser.phone ||
+                  'Unknown',
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
             email: reviewedByUser.email,
             phone: reviewedByUser.phone,
             role: reviewedByUser.role,
@@ -265,6 +316,7 @@ export class AdminVerificationsService {
       },
     });
 
+<<<<<<< HEAD
     if (!user) throw new NotFoundException('User not found');
 
     if (user.verificationStatus === VerificationStatus.VERIFIED) {
@@ -272,6 +324,25 @@ export class AdminVerificationsService {
     }
 
     return this.prisma.user.update({
+=======
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    if (user.verificationStatus !== VerificationStatus.PENDING) {
+      throw new BadRequestException(
+        `Cannot approve verification with status: ${user.verificationStatus}`,
+      );
+    }
+
+    if (!user.verificationDocumentUrl || !user.verificationSelfieUrl) {
+      throw new BadRequestException(
+        'User has not uploaded both required documents',
+      );
+    }
+
+    const updated = await this.prisma.user.update({
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       where: { id: userId },
       data: {
         verificationStatus: VerificationStatus.VERIFIED,
@@ -286,6 +357,11 @@ export class AdminVerificationsService {
         verificationReviewedBy: true,
       },
     });
+<<<<<<< HEAD
+=======
+
+    return updated;
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   }
 
   async rejectVerification(
@@ -295,10 +371,22 @@ export class AdminVerificationsService {
   ) {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
+<<<<<<< HEAD
       select: { id: true, verificationStatus: true },
     });
 
     if (!user) throw new NotFoundException('User not found');
+=======
+      select: {
+        id: true,
+        verificationStatus: true,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
     if (user.verificationStatus !== VerificationStatus.PENDING) {
       throw new BadRequestException(
@@ -306,7 +394,11 @@ export class AdminVerificationsService {
       );
     }
 
+<<<<<<< HEAD
     return this.prisma.user.update({
+=======
+    const updated = await this.prisma.user.update({
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       where: { id: userId },
       data: {
         verificationStatus: VerificationStatus.REJECTED,
@@ -322,5 +414,13 @@ export class AdminVerificationsService {
         verificationReviewedBy: true,
       },
     });
+<<<<<<< HEAD
   }
 }
+=======
+
+    return updated;
+  }
+}
+
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

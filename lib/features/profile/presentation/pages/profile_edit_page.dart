@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -156,3 +157,22 @@ class _SectionTile extends StatelessWidget {
 }
 
 
+=======
+import 'package:flutter/material.dart';
+
+class ProfileEditPage extends StatelessWidget {
+  const ProfileEditPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Редактировать профиль'),
+      ),
+      body: const Center(
+        child: Text('Profile Edit Page'),
+      ),
+    );
+  }
+}
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

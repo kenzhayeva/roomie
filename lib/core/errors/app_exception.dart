@@ -19,3 +19,7 @@ class AppException implements Exception {
   final String message;
   final String? field;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

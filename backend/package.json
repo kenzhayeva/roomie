@@ -50,7 +50,11 @@
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
     "@types/bcrypt": "^6.0.0",
+<<<<<<< HEAD
     "@types/express": "^5.0.6",
+=======
+    "@types/express": "^5.0.0",
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     "@types/jest": "^30.0.0",
     "@types/multer": "^2.0.0",
     "@types/node": "^22.10.7",

@@ -42,9 +42,18 @@ class LoginState {
       rememberMe: rememberMe ?? this.rememberMe,
       identity: identity ?? this.identity,
       password: password ?? this.password,
+<<<<<<< HEAD
       identityErrorMessage: identityErrorMessage ?? this.identityErrorMessage,
       passwordErrorMessage: passwordErrorMessage ?? this.passwordErrorMessage,
       generalErrorMessage: generalErrorMessage ?? this.generalErrorMessage,
+=======
+      identityErrorMessage:
+          identityErrorMessage ?? this.identityErrorMessage,
+      passwordErrorMessage:
+          passwordErrorMessage ?? this.passwordErrorMessage,
+      generalErrorMessage:
+          generalErrorMessage ?? this.generalErrorMessage,
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     );
   }
 
@@ -70,11 +79,21 @@ class LoginController extends StateNotifier<LoginState> {
   }
 
   void setIdentity(String value) {
+<<<<<<< HEAD
     state = state.copyWith(identity: value, identityErrorMessage: null);
   }
 
   void setPassword(String value) {
     state = state.copyWith(password: value, passwordErrorMessage: null);
+=======
+    state =
+        state.copyWith(identity: value, identityErrorMessage: null);
+  }
+
+  void setPassword(String value) {
+    state =
+        state.copyWith(password: value, passwordErrorMessage: null);
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   }
 
   bool validate() {
@@ -86,7 +105,12 @@ class LoginController extends StateNotifier<LoginState> {
 
     if (id.isEmpty) {
       idError = state.useEmail ? 'Введите email' : 'Введите номер телефона';
+<<<<<<< HEAD
     } else if (state.useEmail && !RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(id)) {
+=======
+    } else if (state.useEmail &&
+        !RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(id)) {
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       idError = 'Неверный формат email';
     }
 
@@ -113,6 +137,7 @@ class LoginController extends StateNotifier<LoginState> {
           generalErrorMessage: null,
         );
         break;
+<<<<<<< HEAD
 
       case AppErrorCode.emailAlreadyExists:
       case AppErrorCode.phoneAlreadyExists:
@@ -127,6 +152,25 @@ class LoginController extends StateNotifier<LoginState> {
       case AppErrorCode.validation:
       case AppErrorCode.unknown:
         state = state.copyWith(generalErrorMessage: exception.message);
+=======
+      case AppErrorCode.emailAlreadyExists:
+      case AppErrorCode.phoneAlreadyExists:
+        state = state.copyWith(
+          identityErrorMessage: exception.message,
+        );
+        break;
+      case AppErrorCode.network:
+        state = state.copyWith(
+          generalErrorMessage: exception.message,
+        );
+        break;
+      case AppErrorCode.invalidOrExpiredToken:
+      case AppErrorCode.validation:
+      case AppErrorCode.unknown:
+        state = state.copyWith(
+          generalErrorMessage: exception.message,
+        );
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
         break;
     }
   }
@@ -135,3 +179,7 @@ class LoginController extends StateNotifier<LoginState> {
 final loginProvider = StateNotifierProvider<LoginController, LoginState>(
   (ref) => LoginController(),
 );
+<<<<<<< HEAD
+=======
+
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

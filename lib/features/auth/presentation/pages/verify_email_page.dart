@@ -104,7 +104,13 @@ class _VerifyEmailPageState extends ConsumerState<VerifyEmailPage> {
       _showError = false;
     });
     try {
+<<<<<<< HEAD
       final result = await ref.read(authRepositoryProvider).verifyRegisterOtp(
+=======
+      final result = await ref
+          .read(authRepositoryProvider)
+          .verifyRegisterOtp(
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
             useEmail: _useEmail,
             identity: _identity,
             code: _code,
@@ -368,8 +374,14 @@ class _VerifyEmailPageState extends ConsumerState<VerifyEmailPage> {
                 disabledColor: const Color(0x4D7C3AED),
                 enabledTextColor: Colors.white,
                 disabledTextColor: const Color(0x80FFFFFF),
+<<<<<<< HEAD
                 onPressed:
                     (_isButtonEnabled && !_isSubmitting) ? _onConfirm : null,
+=======
+                onPressed: (_isButtonEnabled && !_isSubmitting)
+                    ? _onConfirm
+                    : null,
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                 textStyle: const TextStyle(
                   fontFamily: 'Gilroy',
                   fontSize: 16,

@@ -23,13 +23,20 @@ import { diskStorage } from 'multer';
 import { extname, join } from 'path';
 import * as fs from 'fs';
 import type { Express } from 'express';
+<<<<<<< HEAD
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 import { VerificationService } from './verification.service';
 import { VerificationDocumentDto } from './dto/verification-document.dto';
 import { VerificationSelfieDto } from './dto/verification-selfie.dto';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 
+<<<<<<< HEAD
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+=======
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
 function ensureDirExists(dir: string) {
@@ -59,7 +66,12 @@ function createKycMulterOptions(folder: 'documents' | 'selfies') {
         const safeExt = ['.jpg', '.jpeg', '.png', '.webp'].includes(ext)
           ? ext
           : '';
+<<<<<<< HEAD
         cb(null, `${timestamp}-${random}${safeExt}`);
+=======
+        const filename = `${timestamp}-${random}${safeExt}`;
+        cb(null, filename);
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       },
     }),
     fileFilter: (req: any, file: Express.Multer.File, cb: any) => {
@@ -73,7 +85,13 @@ function createKycMulterOptions(folder: 'documents' | 'selfies') {
       }
       cb(null, true);
     },
+<<<<<<< HEAD
     limits: { fileSize: MAX_FILE_SIZE },
+=======
+    limits: {
+      fileSize: MAX_FILE_SIZE,
+    },
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   };
 }
 
@@ -107,7 +125,14 @@ export class VerificationController {
     schema: {
       type: 'object',
       properties: {
+<<<<<<< HEAD
         file: { type: 'string', format: 'binary' },
+=======
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       },
     },
   })
@@ -120,7 +145,13 @@ export class VerificationController {
     @CurrentUser() user: any,
     @UploadedFile() file: Express.Multer.File,
   ) {
+<<<<<<< HEAD
     if (!file) throw new BadRequestException('File is required');
+=======
+    if (!file) {
+      throw new BadRequestException('File is required');
+    }
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     return this.verificationService.uploadDocumentFile(user.id, file);
   }
 
@@ -148,7 +179,14 @@ export class VerificationController {
     schema: {
       type: 'object',
       properties: {
+<<<<<<< HEAD
         file: { type: 'string', format: 'binary' },
+=======
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       },
     },
   })
@@ -161,7 +199,13 @@ export class VerificationController {
     @CurrentUser() user: any,
     @UploadedFile() file: Express.Multer.File,
   ) {
+<<<<<<< HEAD
     if (!file) throw new BadRequestException('File is required');
+=======
+    if (!file) {
+      throw new BadRequestException('File is required');
+    }
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     return this.verificationService.uploadSelfieFile(user.id, file);
   }
 
@@ -195,4 +239,9 @@ export class VerificationController {
   async getMyVerification(@CurrentUser() user: any) {
     return this.verificationService.getMyVerification(user.id);
   }
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

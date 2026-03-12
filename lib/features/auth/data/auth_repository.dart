@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿import 'package:dio/dio.dart';
+=======
+import 'package:dio/dio.dart';
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/app_exception.dart';
@@ -18,6 +22,7 @@ class LoginResult {
 
 class AuthFlowResult {
   const AuthFlowResult({required this.next});
+<<<<<<< HEAD
   final String? next;
 }
 
@@ -50,6 +55,12 @@ class CurrentUser {
   }
 }
 
+=======
+
+  final String? next;
+}
+
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 class AuthRepository {
   const AuthRepository(this._dio, this._tokenStorage);
 
@@ -58,11 +69,23 @@ class AuthRepository {
 
   String _normalizePhone(String raw) {
     final digits = raw.replaceAll(RegExp(r'[^0-9+]'), '');
+<<<<<<< HEAD
     if (digits.startsWith('+')) return digits;
     return '+$digits';
   }
 
   String _normalizeEmail(String raw) => raw.trim().toLowerCase();
+=======
+    if (digits.startsWith('+')) {
+      return digits;
+    }
+    return '+$digits';
+  }
+
+  String _normalizeEmail(String raw) {
+    return raw.trim().toLowerCase();
+  }
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
   Future<AuthFlowResult> register({
     required bool useEmail,
@@ -72,7 +95,10 @@ class AuthRepository {
     try {
       final endpoint =
           useEmail ? '/auth/register/email' : '/auth/register/phone';
+<<<<<<< HEAD
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       final body = <String, dynamic>{'password': password};
       if (useEmail) {
         body['email'] = _normalizeEmail(identity);
@@ -84,7 +110,10 @@ class AuthRepository {
         endpoint,
         data: body,
       );
+<<<<<<< HEAD
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       return AuthFlowResult(next: response.data?['next'] as String?);
     } on DioException catch (e) {
       throw mapDioErrorToAppException(e);
@@ -104,7 +133,10 @@ class AuthRepository {
   }) async {
     try {
       final endpoint = useEmail ? '/auth/verify/email' : '/auth/verify/phone';
+<<<<<<< HEAD
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       final body = <String, dynamic>{'code': code.trim()};
       if (useEmail) {
         body['email'] = _normalizeEmail(identity);
@@ -116,7 +148,10 @@ class AuthRepository {
         endpoint,
         data: body,
       );
+<<<<<<< HEAD
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       final data = response.data ?? <String, dynamic>{};
       final accessToken = data['accessToken'] as String?;
       final refreshToken = data['refreshToken'] as String?;
@@ -146,7 +181,11 @@ class AuthRepository {
     } catch (_) {
       throw const AppException(
         code: AppErrorCode.unknown,
+<<<<<<< HEAD
         message: 'Не удалось подтвердить код. Попробуйте еще раз.',
+=======
+        message: 'Не удалось подтвердить код. Попробуйте ещё раз.',
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       );
     }
   }
@@ -234,13 +273,22 @@ class AuthRepository {
         '/auth/refresh',
         data: {'refreshToken': refreshToken},
       );
+<<<<<<< HEAD
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       final data = response.data ?? <String, dynamic>{};
       final accessToken = data['accessToken'] as String?;
       final newRefreshToken = data['refreshToken'] as String?;
       final user = (data['user'] as Map?)?.cast<String, dynamic>();
 
+<<<<<<< HEAD
       if (accessToken == null || newRefreshToken == null) return null;
+=======
+      if (accessToken == null || newRefreshToken == null) {
+        return null;
+      }
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
       await _tokenStorage.setAccessToken(accessToken);
       await _tokenStorage.saveRefreshToken(
@@ -256,6 +304,7 @@ class AuthRepository {
       final appEx = mapDioErrorToAppException(e);
       if (appEx.code == AppErrorCode.invalidOrExpiredToken) {
         await _tokenStorage.clear();
+<<<<<<< HEAD
       }
       return null;
     } catch (_) {
@@ -281,6 +330,11 @@ class AuthRepository {
         code: AppErrorCode.unknown,
         message: 'Не удалось загрузить профиль. Попробуйте позже.',
       );
+=======
+        return null;
+      }
+      return null;
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     }
   }
 }

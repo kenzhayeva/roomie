@@ -4,7 +4,10 @@ import {
   Patch,
   Body,
   Param,
+<<<<<<< HEAD
   Query,
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
@@ -17,8 +20,11 @@ import {
 } from '@nestjs/swagger';
 import { AdminVerificationsService } from './admin-verifications.service';
 import { RejectVerificationDto } from './dto/reject-verification.dto';
+<<<<<<< HEAD
 import { UpdateUserRoleDto } from './dto/update-user-role.dto';
 import { SetUserBanDto } from './dto/set-user-ban.dto';
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { Roles } from '../common/decorators/roles.decorator';
 import { UserRole } from '@prisma/client';
@@ -44,6 +50,7 @@ export class AdminVerificationsController {
     return this.adminVerificationsService.getPendingVerifications();
   }
 
+<<<<<<< HEAD
   @Get('users')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Get users list for admin management' })
@@ -85,6 +92,8 @@ export class AdminVerificationsController {
     return this.adminVerificationsService.setUserBanStatus(userId, dto, admin.id);
   }
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   @Get(':userId')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Get verification details for a specific user' })
@@ -161,3 +170,7 @@ export class AdminVerificationsController {
     );
   }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

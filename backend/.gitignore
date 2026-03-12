@@ -56,7 +56,10 @@ pids
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 /generated/prisma
+<<<<<<< HEAD
 
 
 # Uploads (runtime user files)
 uploads/kyc/
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

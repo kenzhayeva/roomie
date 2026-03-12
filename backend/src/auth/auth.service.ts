@@ -3,7 +3,10 @@ import {
   UnauthorizedException,
   ConflictException,
   BadRequestException,
+<<<<<<< HEAD
   ForbiddenException,
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
@@ -18,7 +21,11 @@ import { RegisterPhoneDto } from './dto/register-phone.dto';
 import { VerifyEmailDto } from './dto/verify-email.dto';
 import { VerifyPhoneDto } from './dto/verify-phone.dto';
 import { ResendOtpDto } from './dto/resend-otp.dto';
+<<<<<<< HEAD
 import { OTPChannel, OTPPurpose, UserRole } from '@prisma/client';
+=======
+import { OTPChannel, OTPPurpose } from '@prisma/client';
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
 @Injectable()
 export class AuthService {
@@ -26,23 +33,34 @@ export class AuthService {
   private readonly OTP_COOLDOWN_SECONDS = 30;
   private readonly MAX_OTP_ATTEMPTS = 5;
 
+<<<<<<< HEAD
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService,
     private configService: ConfigService,
   ) {}
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   private isProduction(): boolean {
     return this.configService.get<string>('NODE_ENV') === 'production';
   }
 
   private parseDurationToMs(duration: string): number {
     const match = /^(\d+)([mhd])$/.exec(duration.trim());
+<<<<<<< HEAD
     if (!match) return 7 * 24 * 60 * 60 * 1000;
 
     const value = Number(match[1]);
     const unit = match[2];
 
+=======
+    if (!match) {
+      return 7 * 24 * 60 * 60 * 1000;
+    }
+    const value = Number(match[1]);
+    const unit = match[2];
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     switch (unit) {
       case 'm':
         return value * 60 * 1000;
@@ -55,6 +73,15 @@ export class AuthService {
     }
   }
 
+<<<<<<< HEAD
+=======
+  constructor(
+    private prisma: PrismaService,
+    private jwtService: JwtService,
+    private configService: ConfigService,
+  ) {}
+
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   // Generate 6-digit OTP code
   private generateOtp(): string {
     return Math.floor(100000 + Math.random() * 900000).toString();
@@ -68,13 +95,24 @@ export class AuthService {
   ): Promise<string> {
     const code = this.generateOtp();
     const codeHash = await bcrypt.hash(code, 10);
+<<<<<<< HEAD
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     const expiresAt = new Date();
     expiresAt.setMinutes(expiresAt.getMinutes() + this.OTP_EXPIRY_MINUTES);
 
     await this.prisma.otpCode.upsert({
       where: {
+<<<<<<< HEAD
         channel_purpose_target: { channel, purpose, target },
+=======
+        channel_purpose_target: {
+          channel,
+          purpose,
+          target,
+        },
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       },
       create: {
         channel,
@@ -106,6 +144,7 @@ export class AuthService {
   ): Promise<void> {
     const otpRecord = await this.prisma.otpCode.findUnique({
       where: {
+<<<<<<< HEAD
         channel_purpose_target: { channel, purpose, target },
       },
     });
@@ -116,6 +155,31 @@ export class AuthService {
       throw new BadRequestException('Code expired');
     if (otpRecord.attempts >= this.MAX_OTP_ATTEMPTS)
       throw new BadRequestException('Too many attempts');
+=======
+        channel_purpose_target: {
+          channel,
+          purpose,
+          target,
+        },
+      },
+    });
+
+    if (!otpRecord) {
+      throw new BadRequestException('Invalid code');
+    }
+
+    if (otpRecord.consumedAt) {
+      throw new BadRequestException('Code already used');
+    }
+
+    if (otpRecord.expiresAt < new Date()) {
+      throw new BadRequestException('Code expired');
+    }
+
+    if (otpRecord.attempts >= this.MAX_OTP_ATTEMPTS) {
+      throw new BadRequestException('Too many attempts');
+    }
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
     const isValid = await bcrypt.compare(code, otpRecord.codeHash);
 
@@ -127,21 +191,29 @@ export class AuthService {
       throw new UnauthorizedException('Invalid code');
     }
 
+<<<<<<< HEAD
+=======
+    // Mark as consumed
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     await this.prisma.otpCode.update({
       where: { id: otpRecord.id },
       data: { consumedAt: new Date() },
     });
   }
 
+<<<<<<< HEAD
   // =========================
   // REGISTER (EMAIL)
   // =========================
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   async registerEmail(registerEmailDto: RegisterEmailDto) {
     const existingUser = await this.prisma.user.findUnique({
       where: { email: registerEmailDto.email },
     });
 
+<<<<<<< HEAD
     // existing and verified -> 409
     if (existingUser?.emailVerified) {
       throw new ConflictException('Email already registered');
@@ -169,6 +241,16 @@ export class AuthService {
     await this.prisma.user.create({
       data: {
         role: UserRole.USER,
+=======
+    if (existingUser) {
+      throw new ConflictException('Email already registered');
+    }
+
+    const hashedPassword = await bcrypt.hash(registerEmailDto.password, 10);
+
+    const user = await this.prisma.user.create({
+      data: {
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
         email: registerEmailDto.email,
         phone: null,
         password: hashedPassword,
@@ -188,11 +270,19 @@ export class AuthService {
     );
 
     if (process.env.OTP_DEV_LOG === 'true') {
+<<<<<<< HEAD
+=======
+      // Only log OTP in explicit dev mode
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       // eslint-disable-next-line no-console
       console.log(`[OTP EMAIL] ${registerEmailDto.email}: ${code}`);
     }
 
+<<<<<<< HEAD
     return { next: 'VERIFY_EMAIL', alreadyExists: false };
+=======
+    return { next: 'VERIFY_EMAIL' };
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   }
 
   async verifyEmail(verifyEmailDto: VerifyEmailDto) {
@@ -207,7 +297,13 @@ export class AuthService {
       where: { email: verifyEmailDto.email },
     });
 
+<<<<<<< HEAD
     if (!user) throw new BadRequestException('User not found');
+=======
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
     const updatedUser = await this.prisma.user.update({
       where: { id: user.id },
@@ -243,15 +339,19 @@ export class AuthService {
     };
   }
 
+<<<<<<< HEAD
   // =========================
   // REGISTER (PHONE)
   // =========================
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   async registerPhone(registerPhoneDto: RegisterPhoneDto) {
     const existingUser = await this.prisma.user.findUnique({
       where: { phone: registerPhoneDto.phone },
     });
 
+<<<<<<< HEAD
     // existing and verified -> 409
     if (existingUser?.phoneVerified) {
       throw new ConflictException('Phone already registered');
@@ -279,6 +379,16 @@ export class AuthService {
     await this.prisma.user.create({
       data: {
         role: UserRole.USER,
+=======
+    if (existingUser) {
+      throw new ConflictException('Phone already registered');
+    }
+
+    const hashedPassword = await bcrypt.hash(registerPhoneDto.password, 10);
+
+    const user = await this.prisma.user.create({
+      data: {
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
         email: null,
         phone: registerPhoneDto.phone,
         password: hashedPassword,
@@ -302,7 +412,11 @@ export class AuthService {
       console.log(`[OTP SMS] ${registerPhoneDto.phone}: ${code}`);
     }
 
+<<<<<<< HEAD
     return { next: 'VERIFY_PHONE', alreadyExists: false };
+=======
+    return { next: 'VERIFY_PHONE' };
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   }
 
   async verifyPhone(verifyPhoneDto: VerifyPhoneDto) {
@@ -317,7 +431,13 @@ export class AuthService {
       where: { phone: verifyPhoneDto.phone },
     });
 
+<<<<<<< HEAD
     if (!user) throw new BadRequestException('User not found');
+=======
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
     const updatedUser = await this.prisma.user.update({
       where: { id: user.id },
@@ -353,10 +473,13 @@ export class AuthService {
     };
   }
 
+<<<<<<< HEAD
   // =========================
   // RESEND OTP
   // =========================
 
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   async resendOtp(resendOtpDto: ResendOtpDto) {
     const otpRecord = await this.prisma.otpCode.findUnique({
       where: {
@@ -387,6 +510,7 @@ export class AuthService {
       resendOtpDto.target,
     );
 
+<<<<<<< HEAD
     if (process.env.OTP_DEV_LOG === 'true') {
       // eslint-disable-next-line no-console
       if (resendOtpDto.channel === OTPChannel.EMAIL) {
@@ -407,6 +531,23 @@ export class AuthService {
   // LOGIN / REFRESH / LOGOUT / ME
   // =========================
 
+=======
+    if (resendOtpDto.channel === OTPChannel.EMAIL) {
+      if (process.env.OTP_DEV_LOG === 'true') {
+        // eslint-disable-next-line no-console
+        console.log(`[OTP EMAIL] ${resendOtpDto.target}: ${code}`);
+      }
+      return { next: 'VERIFY_EMAIL' };
+    } else {
+      if (process.env.OTP_DEV_LOG === 'true') {
+        // eslint-disable-next-line no-console
+        console.log(`[OTP SMS] ${resendOtpDto.target}: ${code}`);
+      }
+      return { next: 'VERIFY_PHONE' };
+    }
+  }
+
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   async login(loginDto: LoginDto) {
     if (!loginDto.email && !loginDto.phone) {
       throw new BadRequestException('Either email or phone must be provided');
@@ -419,6 +560,7 @@ export class AuthService {
     }
 
     const user = loginDto.email
+<<<<<<< HEAD
       ? await this.prisma.user.findUnique({ where: { email: loginDto.email } })
       : await this.prisma.user.findUnique({ where: { phone: loginDto.phone } });
 
@@ -431,6 +573,32 @@ export class AuthService {
     if (loginDto.email && !user.emailVerified) {
       throw new UnauthorizedException('Email not verified');
     }
+=======
+      ? await this.prisma.user.findUnique({
+          where: { email: loginDto.email },
+        })
+      : await this.prisma.user.findUnique({
+          where: { phone: loginDto.phone },
+        });
+
+    if (!user) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    const isPasswordValid = await bcrypt.compare(
+      loginDto.password,
+      user.password,
+    );
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    // Check verification status
+    if (loginDto.email && !user.emailVerified) {
+      throw new UnauthorizedException('Email not verified');
+    }
+
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     if (loginDto.phone && !user.phoneVerified) {
       throw new UnauthorizedException('Phone not verified');
     }
@@ -480,7 +648,13 @@ export class AuthService {
       include: { user: true },
     });
 
+<<<<<<< HEAD
     if (!tokenRecord) throw new UnauthorizedException('Invalid refresh token');
+=======
+    if (!tokenRecord) {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
     if (tokenRecord.expiresAt < new Date()) {
       await this.prisma.refreshToken
@@ -492,15 +666,25 @@ export class AuthService {
     if (tokenRecord.userId !== payload.sub) {
       throw new UnauthorizedException('Invalid refresh token');
     }
+<<<<<<< HEAD
     if (tokenRecord.user.isBanned) {
       throw new ForbiddenException('Account is banned');
     }
 
     return this.generateTokens(
+=======
+
+    const tokens = await this.generateTokens(
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
       tokenRecord.userId,
       tokenRecord.user.email || undefined,
       tokenRecord.user.phone || undefined,
     );
+<<<<<<< HEAD
+=======
+
+    return tokens;
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   }
 
   async logout(userId: string, refreshToken?: string) {
@@ -522,8 +706,11 @@ export class AuthService {
       where: { id: userId },
       select: {
         id: true,
+<<<<<<< HEAD
         role: true,
         isBanned: true,
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
         email: true,
         phone: true,
         firstName: true,
@@ -532,18 +719,32 @@ export class AuthService {
         age: true,
         city: true,
         bio: true,
+<<<<<<< HEAD
         photos: true,
         verificationStatus: true,
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
         emailVerified: true,
         phoneVerified: true,
         onboardingStep: true,
         onboardingCompleted: true,
         createdAt: true,
         updatedAt: true,
+<<<<<<< HEAD
       },
     });
 
     if (!user) throw new UnauthorizedException('User not found');
+=======
+        
+      },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     return user;
   }
 
@@ -553,8 +754,15 @@ export class AuthService {
     const accessSecret = this.configService.get<string>('JWT_ACCESS_SECRET')!;
     const refreshSecret = this.configService.get<string>('JWT_REFRESH_SECRET')!;
 
+<<<<<<< HEAD
     const accessTtl = this.configService.get<string>('ACCESS_TOKEN_TTL') ?? '15m';
     const refreshTtl = this.configService.get<string>('REFRESH_TOKEN_TTL') ?? '7d';
+=======
+    const accessTtl =
+      this.configService.get<string>('ACCESS_TOKEN_TTL') ?? '15m';
+    const refreshTtl =
+      this.configService.get<string>('REFRESH_TOKEN_TTL') ?? '7d';
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
     const accessToken = this.jwtService.sign(payload as any, {
       secret: accessSecret,
@@ -566,7 +774,14 @@ export class AuthService {
       expiresIn: refreshTtl as any,
     });
 
+<<<<<<< HEAD
     await this.prisma.refreshToken.deleteMany({ where: { userId } });
+=======
+    // Delete old refresh tokens
+    await this.prisma.refreshToken.deleteMany({
+      where: { userId },
+    });
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
     const expiresAt = new Date(Date.now() + this.parseDurationToMs(refreshTtl));
 

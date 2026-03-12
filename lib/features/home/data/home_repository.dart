@@ -26,6 +26,7 @@ class HomeRepository {
   Future<List<RecommendedUser>> getRecommendedUsers({
     int page = 1,
     int limit = 20,
+<<<<<<< HEAD
     int? budgetMax,
     String? district,
     String? gender,
@@ -69,6 +70,16 @@ class HomeRepository {
       queryParameters: {'limit': limit},
     );
 
+=======
+  }) async {
+    final response = await _dio.get<Map<String, dynamic>>(
+      '/users/recommendations',
+      queryParameters: {'page': page, 'limit': limit},
+    );
+
+ print('RESPONSE >>> ${response.data}');
+ 
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     final list = response.data?['data'];
     if (list is! List) return [];
 
@@ -90,4 +101,8 @@ class HomeRepository {
   Future<void> unsaveUser(String targetUserId) async {
     await _dio.delete('/favorites/users/$targetUserId');
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

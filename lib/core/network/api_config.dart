@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'package:flutter/foundation.dart';
 
 class ApiConfig {
@@ -32,3 +33,13 @@ class ApiConfig {
 
   const ApiConfig._();
 }
+=======
+import 'api_config_stub.dart'
+    if (dart.library.io) 'api_config_io.dart' as _impl;
+
+class ApiConfig {
+  static String get baseUrl => _impl.getApiBaseUrl();
+  static String get publicBaseUrl => _impl.getPublicBaseUrl();
+  const ApiConfig._();
+}
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_colors.dart';
@@ -29,6 +30,67 @@ class _ChatsPageState extends ConsumerState<ChatsPage> {
   @override
   Widget build(BuildContext context) {
     final async = ref.watch(chatConversationsProvider);
+=======
+import 'package:roommate_app/features/chat/chat_detail_page.dart';
+import 'package:roommate_app/core/theme/app_colors.dart';
+import 'package:roommate_app/core/theme/app_sizes.dart';
+import 'package:roommate_app/core/theme/app_spacing.dart';
+import 'package:roommate_app/core/theme/app_radius.dart';
+import 'package:roommate_app/core/theme/app_text_styles.dart';
+
+class ChatsPage extends StatelessWidget {
+  const ChatsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final chats = [
+      _Chat(
+        name: "Жанар Муратова",
+        last: "Звучит отлично! Когда м...",
+        time: "2 мин",
+        unread: 2,
+        online: true,
+        letter: "Ж",
+        imagePath: "assets/images/ava1.png",
+      ),
+      _Chat(
+        name: "Нурсултан Куандыков",
+        last: "Спасибо за отклик! Я хо...",
+        time: "1 ч",
+        unread: 1,
+        online: false,
+        letter: "Н",
+        imagePath: "assets/images/ava2.png",
+      ),
+      _Chat(
+        name: "Динара Алимиханова",
+        last: "Отлично! Пришло детали с...",
+        time: "3 ч",
+        unread: 0,
+        online: true,
+        letter: "Д",
+        imagePath: "assets/images/ava3.png",
+      ),
+      _Chat(
+        name: "Айбек Жумабаев",
+        last: "Договорились, до связи!",
+        time: "1 дн",
+        unread: 0,
+        online: false,
+        letter: "А",
+        imagePath: "assets/images/ava6.png",
+      ),
+      _Chat(
+        name: "Екатерина Родина",
+        last: "Привет! Рада познакомиться 😊",
+        time: "2 дн",
+        unread: 0,
+        online: false,
+        letter: "Е",
+        imagePath: "assets/images/ava5.png",
+      ),
+    ];
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 
     return Scaffold(
       backgroundColor: const Color(0xFFF3F4F6),
@@ -40,7 +102,11 @@ class _ChatsPageState extends ConsumerState<ChatsPage> {
             children: [
               Row(
                 children: const [
+<<<<<<< HEAD
                   Text('Messages', style: AppTextStyles.title),
+=======
+                  Text("Сообщения", style: AppTextStyles.title),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                   Spacer(),
                   Icon(Icons.more_horiz),
                 ],
@@ -53,6 +119,7 @@ class _ChatsPageState extends ConsumerState<ChatsPage> {
                   color: AppColors.searchBg,
                   borderRadius: BorderRadius.circular(AppRadius.md),
                 ),
+<<<<<<< HEAD
                 child: Row(
                   children: [
                     const Icon(Icons.search, size: 18, color: Colors.black38),
@@ -65,6 +132,19 @@ class _ChatsPageState extends ConsumerState<ChatsPage> {
                           hintText: 'Search',
                           border: InputBorder.none,
                           isCollapsed: true,
+=======
+                child: const Row(
+                  children: [
+                    Icon(Icons.search, size: 18, color: Colors.black38),
+                    SizedBox(width: AppSpacing.sm),
+                    Expanded(
+                      child: Text(
+                        "Поиск",
+                        style: TextStyle(
+                          color: Colors.black38,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                         ),
                       ),
                     ),
@@ -73,6 +153,7 @@ class _ChatsPageState extends ConsumerState<ChatsPage> {
               ),
               const SizedBox(height: AppSpacing.searchGap),
               Expanded(
+<<<<<<< HEAD
                 child: async.when(
                   loading: () => const Center(
                     child: CircularProgressIndicator(color: AppColors.primary),
@@ -138,6 +219,28 @@ class _ChatsPageState extends ConsumerState<ChatsPage> {
                       ),
                     );
                   },
+=======
+                child: ListView.separated(
+                  itemCount: chats.length,
+                  separatorBuilder: (_, __) =>
+                      const SizedBox(height: AppSpacing.chatItemGap),
+                  itemBuilder: (_, i) => _ChatTile(
+                    chat: chats[i],
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ChatDetailPage(
+                            title: chats[i].name,
+                            online: chats[i].online,
+                            letter: chats[i].letter,
+                            imagePath: chats[i].imagePath,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                 ),
               ),
             ],
@@ -146,6 +249,7 @@ class _ChatsPageState extends ConsumerState<ChatsPage> {
       ),
     );
   }
+<<<<<<< HEAD
 
   String _firstLetter(String s) {
     final t = s.trim();
@@ -156,10 +260,38 @@ class _ChatsPageState extends ConsumerState<ChatsPage> {
 
 class _ChatTile extends StatelessWidget {
   const _ChatTile({
+=======
+}
+
+class _Chat {
+  final String name, last, time, letter;
+  final int unread;
+  final bool online;
+  final String imagePath;
+
+  _Chat({
+    required this.name,
+    required this.last,
+    required this.time,
+    required this.unread,
+    required this.online,
+    required this.letter,
+    required this.imagePath,
+  });
+}
+
+class _ChatTile extends StatelessWidget {
+  final _Chat chat;
+  final VoidCallback onTap;
+
+  const _ChatTile({
+    super.key,
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     required this.chat,
     required this.onTap,
   });
 
+<<<<<<< HEAD
   final ChatConversation chat;
   final VoidCallback onTap;
 
@@ -168,11 +300,16 @@ class _ChatTile extends StatelessWidget {
     final lastText = (chat.lastMessageText ?? '').trim();
     final timeText = _formatTime(chat.lastMessageAt);
 
+=======
+  @override
+  Widget build(BuildContext context) {
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(AppRadius.lg),
       child: Row(
         children: [
+<<<<<<< HEAD
           CircleAvatar(
             radius: AppSizes.avatarRadius,
             backgroundColor: const Color(0xFFE5E7EB),
@@ -187,16 +324,46 @@ class _ChatTile extends StatelessWidget {
                     ),
                   )
                 : null,
+=======
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              CircleAvatar(
+                radius: AppSizes.avatarRadius,
+                backgroundImage: AssetImage(chat.imagePath),
+              ),
+              Positioned(
+                right: -1,
+                bottom: -1,
+                child: Container(
+                  width: AppSizes.onlineDot,
+                  height: AppSizes.onlineDot,
+                  decoration: BoxDecoration(
+                    color: chat.online ? AppColors.online : AppColors.offline,
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white, width: 2),
+                  ),
+                ),
+              ),
+            ],
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
           ),
           const SizedBox(width: AppSpacing.avatarToTextGap),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+<<<<<<< HEAD
                 Text(chat.peerName, style: AppTextStyles.name),
                 const SizedBox(height: AppSpacing.nameToLastGap),
                 Text(
                   lastText.isEmpty ? 'Start conversation' : lastText,
+=======
+                Text(chat.name, style: AppTextStyles.name),
+                const SizedBox(height: AppSpacing.nameToLastGap),
+                Text(
+                  chat.last,
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.secondary12,
@@ -208,9 +375,15 @@ class _ChatTile extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
+<<<<<<< HEAD
               Text(timeText, style: AppTextStyles.secondary12),
               const SizedBox(height: AppSpacing.timeToBadgeGap),
               if (chat.unreadCount > 0)
+=======
+              Text(chat.time, style: AppTextStyles.secondary12),
+              const SizedBox(height: AppSpacing.timeToBadgeGap),
+              if (chat.unread > 0)
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                 Container(
                   width: AppSizes.unreadBadge,
                   height: AppSizes.unreadBadge,
@@ -221,7 +394,11 @@ class _ChatTile extends StatelessWidget {
                         BorderRadius.circular(AppSizes.unreadBadge / 2),
                   ),
                   child: Text(
+<<<<<<< HEAD
                     '${chat.unreadCount}',
+=======
+                    "${chat.unread}",
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 11,
@@ -235,6 +412,7 @@ class _ChatTile extends StatelessWidget {
       ),
     );
   }
+<<<<<<< HEAD
 
   static String _firstLetter(String s) {
     final t = s.trim();
@@ -252,4 +430,6 @@ class _ChatTile extends StatelessWidget {
     }
     return '${dt.day.toString().padLeft(2, '0')}.${dt.month.toString().padLeft(2, '0')}';
   }
+=======
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 }

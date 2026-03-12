@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿import 'package:flutter/material.dart';
+=======
+import 'package:flutter/material.dart';
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_colors.dart';
@@ -21,6 +25,12 @@ class SavedUserProfilePage extends ConsumerWidget {
 
   final RecommendedUser user;
 
+<<<<<<< HEAD
+=======
+  // ChatDetailPage asset image expects local asset path
+  static const String _defaultChatAvatarAsset = 'assets/images/ava1.png';
+
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final photo = user.avatarUrl;
@@ -273,7 +283,11 @@ class SavedUserProfilePage extends ConsumerWidget {
 
                       const SizedBox(height: 14),
 
+<<<<<<< HEAD
                       // ===== Rules (Т›Р°Р·С–СЂ placeholder, РєРµР№С–РЅ backend) =====
+=======
+                      // ===== Rules (қазір placeholder, кейін backend) =====
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                       _Card(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -374,11 +388,18 @@ class SavedUserProfilePage extends ConsumerWidget {
                             context,
                             MaterialPageRoute(
                               builder: (_) => ChatDetailPage(
+<<<<<<< HEAD
                                 peerUserId: user.id,
                                 title: user.displayName,
                                 imageUrl: user.avatarUrl,
                                 online: true, // backend Р¶РѕТ› У™Р·С–СЂРіРµ
                                 letter: _firstLetter(user.displayName),
+=======
+                                title: user.displayName,
+                                online: true, // backend жоқ әзірге
+                                letter: _firstLetter(user.displayName),
+                                imagePath: _defaultChatAvatarAsset,
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                               ),
                             ),
                           );
@@ -532,7 +553,11 @@ List<_LifestyleItem> _lifestyleToItems(Map<String, dynamic>? lifestyle) {
     );
   }
 
+<<<<<<< HEAD
   // If backend filled nothing recognized, show nothing (UI will show "РЅРµ Р·Р°РїРѕР»РЅРµРЅР°")
+=======
+  // If backend filled nothing recognized, show nothing (UI will show "не заполнена")
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   return items;
 }
 
@@ -736,6 +761,10 @@ class _Chip extends StatelessWidget {
       ),
     );
   }
+<<<<<<< HEAD
 }
 
 
+=======
+}
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2

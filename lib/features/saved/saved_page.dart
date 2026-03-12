@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿import 'package:flutter/material.dart';
+=======
+import 'package:flutter/material.dart';
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_colors.dart';
@@ -63,7 +67,11 @@ class SavedPage extends ConsumerWidget {
 
           return GridView.builder(
             padding: const EdgeInsets.all(AppSizes.gridPadding),
+<<<<<<< HEAD
             itemCount: visibleUsers.length, // вњ… РґТ±СЂС‹СЃ
+=======
+            itemCount: visibleUsers.length, // ✅ дұрыс
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: AppSizes.gridSpacing,
@@ -71,7 +79,11 @@ class SavedPage extends ConsumerWidget {
               childAspectRatio: AppSizes.gridAspectRatio,
             ),
             itemBuilder: (_, i) {
+<<<<<<< HEAD
               final user = visibleUsers[i]; // вњ… РґТ±СЂС‹СЃ
+=======
+              final user = visibleUsers[i]; // ✅ дұрыс
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
               return _SavedUserCard(user: user);
             },
           );
@@ -86,6 +98,12 @@ class _SavedUserCard extends StatelessWidget {
 
   final RecommendedUser user;
 
+<<<<<<< HEAD
+=======
+  // ✅ чатқа керек дефолт аватар (asset)
+  static const String _defaultChatAvatar = 'assets/images/ava1.png';
+
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
   @override
   Widget build(BuildContext context) {
     final r = BorderRadius.circular(AppSizes.cardRadius);
@@ -200,11 +218,16 @@ class _SavedUserCard extends StatelessWidget {
 
                         _WriteButton(
                           onPressed: () {
+<<<<<<< HEAD
                             // вњ… "РќР°РїРёСЃР°С‚СЊ" -> ChatDetailPage
+=======
+                            // ✅ "Написать" -> ChatDetailPage
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (_) => ChatDetailPage(
+<<<<<<< HEAD
                                   peerUserId: user.id,
                                   title: user.displayName,
                                   imageUrl: user.avatarUrl,
@@ -212,6 +235,14 @@ class _SavedUserCard extends StatelessWidget {
                                   letter: user.displayName.isNotEmpty
                                       ? user.displayName.trim()[0]
                                       : '?',
+=======
+                                  title: user.displayName,
+                                  online: true, // қазір бек жоқ, placeholder
+                                  letter: user.displayName.isNotEmpty
+                                      ? user.displayName.trim()[0]
+                                      : '?',
+                                  imagePath: _defaultChatAvatar,
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
                                 ),
                               ),
                             );
@@ -339,6 +370,10 @@ class _WriteButton extends StatelessWidget {
       ),
     );
   }
+<<<<<<< HEAD
 }
 
 
+=======
+}
+>>>>>>> e81054ccdfbd484d6376c45e8616999d3b5ab4a2
